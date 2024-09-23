@@ -1,4 +1,4 @@
-;;; modusreg.el --- mode line customizations -*- lexical-binding: t -*-
+;;; modusregel.el --- mode line customizations -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2024 Free Software Foundation, Inc.
 
@@ -128,7 +128,7 @@
        )))
   "The mode-line format to be used.")
 
-(provide 'modusreg.el)
+(provide 'modusregel)
 
-;;; modusreg.el ends here
+;;; modusregel.el ends here
 

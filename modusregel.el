@@ -1,12 +1,14 @@
-;;; modusregel.el --- mode line customizations -*- lexical-binding: t -*-
+;;; modusregel.el --- Mode line customizations -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2024 Free Software Foundation, Inc.
 
 ;; Version: 0.1.0
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
-;; Keywords: mode, line, emacs, ui
+;; URL: https://github.com/jjba23/modusregel
+;; Keywords: faces
 ;; Package: modusregel
+;; Package-Requires: ((emacs "28.1"))
 
 ;; This file is part of GNU Emacs.
 
@@ -37,8 +39,7 @@
 
 (defgroup modusregel ()
   "Simple and effective mode line customizations for your Emacs."
-  :group 'tools
-  )
+  :group 'tools)
 
 (defcustom modusregel-leading-str " 𝝺  "
   "String to use at the very start of the mode line."
@@ -64,8 +65,7 @@
   '(:eval (when-let (vc vc-mode)
                      (list
                       (substring vc 5)
-                      modusregel-spacer-str)
-                     )))
+                      modusregel-spacer-str))))
 
 (defvar modusregel-flymake-expr
   '(:eval (flymake--mode-line-counters)))
@@ -93,18 +93,13 @@
     ("text-mode" . "Text"))
   "A mapping of major-mode names to more readable versions."
   :type 'alist
-  :group 'modusregel
-  )
+  :group 'modusregel)
 
 (defun modusregel-major-mode-name (raw-name)
   "Convert a RAW-NAME of a major mode into a prettier more readable version."
-  (let* (
-        (mapped-name (cdr (assoc raw-name modusregel-major-mode-alist)))
-        (resulting-mapped-name (or mapped-name raw-name))
-        )
-    resulting-mapped-name
-    )
-  )
+  (let* ((mapped-name (cdr (assoc raw-name modusregel-major-mode-alist)))
+         (resulting-mapped-name (or mapped-name raw-name)))
+    resulting-mapped-name))
 
 (defvar modusregel-major-mode-expr
   '(:eval (modusregel-major-mode-name (format "%s" major-mode)))
@@ -124,8 +119,7 @@
            modusregel-vc-expr
            modusregel-major-mode-expr
            modusregel-spacer-str
-           modusregel-flymake-expr
-       )))
+           modusregel-flymake-expr)))
   "The mode-line format to be used.")
 
 (provide 'modusregel)

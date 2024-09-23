@@ -76,7 +76,8 @@
 (defcustom modusregel-buffer-modified-str
   '(:eval (when (buffer-modified-p) "++"))
   "String to use to show that a buffer is modified and unsaved."
-  :type 'string)
+  :type 'string
+  :group 'modusregel)
 
 (defcustom modusregel-major-mode-alist
   '(("emacs-lisp-mode" . "ELisp")
@@ -92,12 +93,18 @@
     ("text-mode" . "Text"))
   "A mapping of major-mode names to more readable versions."
   :type 'alist
+  :group 'modusregel
   )
 
 (defun modusregel-major-mode-name (raw-name)
   "Convert a RAW-NAME of a major mode into a prettier more readable version."
-  (interactive)
-  (alist-get raw-name modusregel-major-mode-alist raw-name))
+  (let* (
+        (mapped-name (cdr (assoc raw-name modusregel-major-mode-alist)))
+        (resulting-mapped-name (if mapped-name mapped-name raw-name))
+        )
+    resulting-mapped-name
+    )
+  )
 
 (defvar modusregel-major-mode-expr
   '(:eval (modusregel-major-mode-name (format "%s" major-mode)))

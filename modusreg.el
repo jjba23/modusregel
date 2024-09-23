@@ -78,11 +78,7 @@
   "String to use to show that a buffer is modified and unsaved."
   :type 'string)
 
-(defvar modusregel-major-mode-expr
-  (jjba-major-mode-name (format "%s" major-mode))
-  "Representation of the major mode in the mode line.")
-
-(defun jjba-major-mode-name (raw-name)
+(defun modusregel-major-mode-name (raw-name)
     "Convert a RAW-NAME of a major mode into a prettier more readable version."
     (interactive)
     (cond
@@ -94,6 +90,10 @@
      ((string-equal raw-name "nix-ts-mode") "Nix")
      (t raw-name)
      ))
+
+(defvar modusregel-major-mode-expr
+  (modusregel-major-mode-name (format "%s" major-mode))
+  "Representation of the major mode in the mode line.")
 
 (defvar modusregel-format (list
     '(:eval

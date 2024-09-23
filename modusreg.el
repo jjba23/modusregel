@@ -88,6 +88,10 @@
      ((string-equal raw-name "haskell-mode") "Haskell")
      ((string-equal raw-name "scala-ts-mode") "Scala")
      ((string-equal raw-name "nix-ts-mode") "Nix")
+     ((string-equal raw-name "dired-mode") "Dired")
+     ((string-equal raw-name "fundamental-mode") "Fundamental")
+     ((string-equal raw-name "magit-status-mode") "Magit Status")
+     ((string-equal raw-name "text-mode") "Text")
      (t raw-name)
      ))
 

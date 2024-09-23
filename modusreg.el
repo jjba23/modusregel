@@ -113,6 +113,7 @@
        )))
   "The mode-line format to be used.")
 
-(provide 'modusregel)
+(provide 'modusreg.el)
 
 ;;; modusreg.el ends here
+

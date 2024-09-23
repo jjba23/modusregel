@@ -74,7 +74,7 @@
   (propertize "%b" 'help-echo (buffer-file-name)))
 
 (defcustom modusregel-buffer-modified-str
-  (when (buffer-modified-p) "++")
+  '(:eval (when (buffer-modified-p) "++"))
   "String to use to show that a buffer is modified and unsaved."
   :type 'string)
 
@@ -92,7 +92,7 @@
      ))
 
 (defvar modusregel-major-mode-expr
-  (modusregel-major-mode-name (format "%s" major-mode))
+  '(:eval (modusregel-major-mode-name (format "%s" major-mode)))
   "Representation of the major mode in the mode line.")
 
 (defvar modusregel-format (list

@@ -78,22 +78,25 @@
   "String to use to show that a buffer is modified and unsaved."
   :type 'string)
 
-(defun modusregel-major-mode-name (raw-name)
-    "Convert a RAW-NAME of a major mode into a prettier more readable version."
-    (interactive)
-    (cond
-     ((string-equal raw-name "emacs-lisp-mode") "ELisp")
-     ((string-equal raw-name "lisp-interaction-mode") "ELisp")
-     ((string-equal raw-name "shell-command-mode") "Shell-cmd")
-     ((string-equal raw-name "haskell-mode") "Haskell")
-     ((string-equal raw-name "scala-ts-mode") "Scala")
-     ((string-equal raw-name "nix-ts-mode") "Nix")
-     ((string-equal raw-name "dired-mode") "Dired")
-     ((string-equal raw-name "fundamental-mode") "Fundamental")
-     ((string-equal raw-name "magit-status-mode") "Magit Status")
-     ((string-equal raw-name "text-mode") "Text")
-     (t raw-name)
-     ))
+(defcustom modusregel-major-mode-alist
+  '(("emacs-lisp-mode" . "ELisp")
+    ("lisp-interaction-mode" . "ELisp")
+    ("shell-command-mode" . "Shell-cmd")
+    ("haskell-mode" . "Haskell")
+    ("scala-ts-mode" . "Scala")
+    ("nix-ts-mode" . "Nix")
+    ("dired-mode" . "Dired")
+    ("fundamental-mode" . "Fundamental")
+    ("magit-status-mode" . "Magit Status")
+    ("text-mode" . "Text"))
+  "A mapping of major-mode names to more readable versions."
+  :type 'alist
+  )
+
+(defun modusreg-major-mode-name (raw-name)
+  "Convert a RAW-NAME of a major mode into a prettier more readable version."
+  (interactive)
+  (alist-get raw-name modusregel-major-mode-alist raw-name))
 
 (defvar modusregel-major-mode-expr
   '(:eval (modusregel-major-mode-name (format "%s" major-mode)))

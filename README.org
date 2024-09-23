@@ -1,0 +1,3 @@
+* modusreg.el
+
+A clean, simple, elegant and beautiful mode line for Emacs, with customization and performance in mind.

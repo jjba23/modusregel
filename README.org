@@ -1,3 +1,8 @@
 * modusregel
 
 A clean, simple, elegant and beautiful mode line for Emacs, with customization and performance in mind.
+
+#+begin_html
+<img src="./resources/screenshots/schermafdruk-van-2024-09-23-19-41-11.png"/>
+<img src="./resources/screenshots/schermafdruk-van-2024-09-23-19-41-20.png"/>
+#+end_html

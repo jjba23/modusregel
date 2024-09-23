@@ -88,12 +88,13 @@
     ("dired-mode" . "Dired")
     ("fundamental-mode" . "Fundamental")
     ("magit-status-mode" . "Magit Status")
+    ("yaml-mode" . "YAML")
     ("text-mode" . "Text"))
   "A mapping of major-mode names to more readable versions."
   :type 'alist
   )
 
-(defun modusreg-major-mode-name (raw-name)
+(defun modusregel-major-mode-name (raw-name)
   "Convert a RAW-NAME of a major mode into a prettier more readable version."
   (interactive)
   (alist-get raw-name modusregel-major-mode-alist raw-name))

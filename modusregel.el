@@ -100,7 +100,7 @@
   "Convert a RAW-NAME of a major mode into a prettier more readable version."
   (let* (
         (mapped-name (cdr (assoc raw-name modusregel-major-mode-alist)))
-        (resulting-mapped-name (if mapped-name mapped-name raw-name))
+        (resulting-mapped-name (or mapped-name raw-name))
         )
     resulting-mapped-name
     )

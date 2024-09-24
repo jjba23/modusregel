@@ -14,4 +14,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Emacs Lisp check
-        uses: leotaku/elisp-check@v1.4.0
+        uses: leotaku/elisp-check@master
+        with:
+          file: modusregel.el

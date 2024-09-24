@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2024 Free Software Foundation, Inc.
 
-;; Version: 0.1.1
+;; Version: 0.1.2
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://github.com/jjba23/modusregel
@@ -80,17 +80,17 @@
   :group 'modusregel)
 
 (defcustom modusregel-major-mode-alist
-  '(("emacs-lisp-mode" . "ELisp")
-    ("lisp-interaction-mode" . "ELisp")
-    ("shell-command-mode" . "Shell-cmd")
-    ("haskell-mode" . "Haskell")
-    ("scala-ts-mode" . "Scala")
-    ("nix-ts-mode" . "Nix")
-    ("dired-mode" . "Dired")
-    ("fundamental-mode" . "Fundamental")
-    ("magit-status-mode" . "Magit Status")
-    ("yaml-mode" . "YAML")
-    ("text-mode" . "Text"))
+  '((emacs-lisp-mode . "ELisp")
+    (lisp-interaction-mode . "ELisp")
+    (shell-command-mode . "Shell-cmd")
+    (haskell-mode . "Haskell")
+    (scala-ts-mode . "Scala")
+    (nix-ts-mode . "Nix")
+    (dired-mode . "Dired")
+    (fundamental-mode . "Fundamental")
+    (magit-status-mode . "Magit Status")
+    (yaml-mode . "YAML")
+    (text-mode . "Text"))
   "A mapping of major-mode names to more readable versions."
   :type 'alist
   :group 'modusregel)
@@ -102,24 +102,23 @@
     resulting-mapped-name))
 
 (defvar modusregel-major-mode-expr
-  '(:eval (modusregel-major-mode-name (format "%s" major-mode)))
+  '(:eval (modusregel-major-mode-name major-mode))
   "Representation of the major mode in the mode line.")
 
-(defvar modusregel-format (list
-    '(:eval
-      (list
-           modusregel-leading-str
-           modusregel-buffer-name-expr
-           modusregel-buffer-modified-str
-           modusregel-spacer-str
-           modusregel-line-number-str
-           modusregel-spacer-str
-           modusregel-buffer-position-str
-           modusregel-spacer-str
-           modusregel-vc-expr
-           modusregel-major-mode-expr
-           modusregel-spacer-str
-           modusregel-flymake-expr)))
+(defvar modusregel-format
+  (list
+   modusregel-leading-str
+   modusregel-buffer-name-expr
+   modusregel-buffer-modified-str
+   modusregel-spacer-str
+   modusregel-line-number-str
+   modusregel-spacer-str
+   modusregel-buffer-position-str
+   modusregel-spacer-str
+   modusregel-vc-expr
+   modusregel-major-mode-expr
+   modusregel-spacer-str
+   modusregel-flymake-expr)
   "The mode-line format to be used.")
 
 (provide 'modusregel)

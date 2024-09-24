@@ -1,0 +1,17 @@
+name: Emacs Lisp lint
+on:
+  push:
+    branches:
+      - trunk
+  pull_request:
+    types:
+      - opened
+      - edited
+jobs:
+  emacs-lisp-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Emacs Lisp check
+        uses: leotaku/elisp-check@v1.4.0

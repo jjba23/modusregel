@@ -6,3 +6,24 @@ A clean, simple, elegant and beautiful mode line for Emacs, with customization a
 <img src="./resources/screenshots/schermafdruk-van-2024-09-23-19-41-11.png"/>
 <img src="./resources/screenshots/schermafdruk-van-2024-09-23-19-41-20.png"/>
 #+end_html
+
+** Installing
+
+This package is not (yet) available in popular Emacs repositories such as MELPA or ELPA.
+An example installation with Elpaca:
+#+begin_src emacs-lisp
+  (use-package modusregel
+  :ensure (:host github :repo "jjba23/modusregel" :branch "trunk")
+  :config
+  (setq-default mode-line-format modusregel-format))
+#+end_src
+
+
+*Note*: remember that mode-line-format is window-local, this means that to persist changes and set it globally, one must use ~setq-default~ and for tweaking and experimenting, change it temporarily to ~setq~.
+
+#+begin_src emacs-lisp
+  ;; window only
+  (setq mode-line-format modusregel-format)
+  ;; global
+  (setq-default mode-line-format modusregel-format)
+#+end_src

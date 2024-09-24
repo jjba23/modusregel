@@ -16,7 +16,7 @@ jobs:
       - name: Set up Emacs
         uses: purcell/setup-emacs@master
         with:
-          version: 30
+          version: 30.0
       - name: Emacs Lisp check
         uses: leotaku/elisp-check@master
         with:

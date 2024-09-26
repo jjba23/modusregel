@@ -90,6 +90,7 @@
     (fundamental-mode . "Fundamental")
     (magit-status-mode . "Magit Status")
     (yaml-mode . "YAML")
+    (scheme-mode . "Scheme")
     (text-mode . "Text"))
   "A mapping of major-mode names to more readable versions."
   :type 'alist
@@ -98,7 +99,7 @@
 (defun modusregel-major-mode-name (raw-name)
   "Convert a RAW-NAME of a major mode into a prettier more readable version."
   (let* ((mapped-name (cdr (assoc raw-name modusregel-major-mode-alist)))
-         (resulting-mapped-name (or mapped-name raw-name)))
+         (resulting-mapped-name (or mapped-name (format "%s" raw-name))))
     resulting-mapped-name))
 
 (defvar modusregel-major-mode-expr

@@ -5,7 +5,7 @@
 ;; Version: 0.1.2
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
-;; URL: https://github.com/jjba23/modusregel
+;; URL: https://codeberg.org/jjba23/modusregel
 ;; Keywords: faces
 ;; Package: modusregel
 ;; Package-Requires: ((emacs "28.1"))

@@ -21,7 +21,7 @@ This package is not (yet) available in popular Emacs repositories such as MELPA 
 An example installation with Elpaca:
 #+begin_src emacs-lisp
   (use-package modusregel
-  :ensure (:host github :repo "jjba23/modusregel" :branch "trunk")
+  :ensure (:host codeberg :repo "jjba23/modusregel" :branch "trunk")
   :config
   (setq-default mode-line-format modusregel-format))
 #+end_src

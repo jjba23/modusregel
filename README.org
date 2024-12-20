@@ -1,19 +1,17 @@
-* modusregel
+#+title: modusregel
+#+options: num:nil toc:nil
 
 /modusregel/ means mode line in the Dutch language.
 
-#+begin_html
-<div>
-<img src="https://img.shields.io/badge/GNU%20Emacs-7F5AB6?logo=gnuemacs&logoColor=fff&style=plastic" alt="GNU Emacs"/>
-</div>
-#+end_html
+[[https://img.shields.io/badge/GNU%20Emacs-7F5AB6?logo=gnuemacs&logoColor=fff&style=plastic]]
 
 A clean, simple, elegant and beautiful mode line for Emacs, with customization and performance in mind.
 
-#+begin_html
-<img src="./resources/screenshots/schermafdruk-van-2024-09-23-19-41-11.png"/>
-<img src="./resources/screenshots/schermafdruk-van-2024-09-23-19-41-20.png"/>
-#+end_html
+Bear in mind modusregel completely replaces Emacs' original mode line, and as such, integrating certain modeline packages will take a different approach. Read further for more information.
+
+[[./resources/screenshots/schermafdruk-van-2024-09-23-19-41-11.png]]
+
+[[./resources/screenshots/schermafdruk-van-2024-09-23-19-41-20.png]]
 
 ** Installing
 
@@ -36,6 +34,9 @@ An example installation with Elpaca:
   (setq-default mode-line-format modusregel-format)
 #+end_src
 
+*** Using with keycast
+
+modusregel 
 If you'd like to use this package in combination with ~keycast~ you can do this:
 #+begin_src emacs-lisp
   (use-package keycast
@@ -43,7 +44,7 @@ If you'd like to use this package in combination with ~keycast~ you can do this:
     :hook (after-init . keycast-mode)
     :config
     (define-minor-mode keycast-mode
-      "Show current command and its key binding in the mode line (fix for use with doom-modeline)."
+      "Show current command and its key binding in the mode line."
       :global t
       (if keycast-mode
           (add-hook 'pre-command-hook 'keycast--update t)

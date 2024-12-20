@@ -3,8 +3,6 @@
 
 /modusregel/ means mode line in the Dutch language.
 
-[[https://img.shields.io/badge/GNU%20Emacs-7F5AB6?logo=gnuemacs&logoColor=fff&style=plastic]]
-
 A clean, simple, elegant and beautiful mode line for Emacs, with customization and performance in mind.
 
 Bear in mind modusregel completely replaces Emacs' original mode line, and as such, integrating certain modeline packages will take a different approach. Read further for more information.

@@ -63,12 +63,12 @@
 
 (defvar modusregel-vc-expr
   '(:eval (when-let (vc vc-mode)
-                     (list
-                      (substring vc 5)
-                      modusregel-spacer-str))))
+            (list
+             (substring vc 5)
+             modusregel-spacer-str))))
 
 (defvar modusregel-flymake-expr
-  '(:eval (flymake--mode-line-counters)))
+  '(:eval (ignore-errors (flymake--mode-line-counters))))
 
 (defvar modusregel-buffer-name-expr
   (propertize "%b" 'help-echo (buffer-file-name)))
@@ -90,7 +90,11 @@
     (fundamental-mode . "Fundamental")
     (magit-status-mode . "Magit Status")
     (yaml-mode . "YAML")
+    (toml-mode . "TOML")
+    (js-json-mode . "JSON")
     (scheme-mode . "Scheme")
+    (rust-mode . "Rust")
+    (go-mode . "Go")
     (text-mode . "Text"))
   "A mapping of major-mode names to more readable versions."
   :type 'alist

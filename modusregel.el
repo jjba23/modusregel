@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2024 Free Software Foundation, Inc.
 
-;; Version: 0.1.2
+;; Version: 0.2.0
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -95,6 +95,7 @@
     (scheme-mode . "Scheme")
     (rust-mode . "Rust")
     (go-mode . "Go")
+    (makefile-gmake-mode . "Make")
     (text-mode . "Text"))
   "A mapping of major-mode names to more readable versions."
   :type 'alist

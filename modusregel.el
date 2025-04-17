@@ -100,6 +100,7 @@
     (org-mode . "Org")
     (deadgrep-mode . "Grep")
     (grep-mode . "Grep")
+    (elpaca-log-mode . "Elpaca")
     (text-mode . "Text"))
   "A mapping of major-mode names to more readable versions."
   :type 'alist

@@ -96,6 +96,10 @@
     (rust-mode . "Rust")
     (go-mode . "Go")
     (makefile-gmake-mode . "Make")
+    (eshell-mode . "EShell")
+    (org-mode . "Org")
+    (deadgrep-mode . "Grep")
+    (grep-mode . "Grep")
     (text-mode . "Text"))
   "A mapping of major-mode names to more readable versions."
   :type 'alist

@@ -2,7 +2,7 @@
 
 ;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.2.3
+;; Version: 0.2.4
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -100,6 +100,7 @@
     (org-mode . "Org")
     (deadgrep-mode . "Grep")
     (grep-mode . "Grep")
+    (conf-unix-mode . "Conf")
     (elpaca-log-mode . "Elpaca")
     (text-mode . "Text"))
   "A mapping of major-mode names to more readable versions."

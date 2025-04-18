@@ -1,8 +1,8 @@
 ;;; modusregel.el --- Mode line customizations -*- lexical-binding: t -*-
 
-;; Copyright (C) 2024 Free Software Foundation, Inc.
+;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.2.0
+;; Version: 0.2.3
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel

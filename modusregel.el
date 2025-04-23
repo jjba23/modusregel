@@ -2,7 +2,7 @@
 
 ;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.2.6
+;; Version: 0.2.7
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -84,6 +84,7 @@
     (lisp-interaction-mode . "ELisp")
     (shell-command-mode . "Shell-cmd")
     (shell-mode . "Shell")
+    (compilation-mode . "Compile")
     (haskell-mode . "Haskell")
     (scala-ts-mode . "Scala")
     (nix-ts-mode . "Nix")

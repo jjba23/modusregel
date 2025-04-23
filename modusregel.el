@@ -2,7 +2,7 @@
 
 ;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.2.7
+;; Version: 0.2.8
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -88,6 +88,8 @@
     (haskell-mode . "Haskell")
     (scala-ts-mode . "Scala")
     (nix-ts-mode . "Nix")
+    (dockerfile-mode . "Containerfile")
+    (dockerfile-ts-mode . "Containerfile")
     (dired-mode . "Dired")
     (fundamental-mode . "Fundamental")
     (magit-status-mode . "Magit Status")

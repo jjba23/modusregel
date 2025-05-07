@@ -2,7 +2,7 @@
 
 ;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.2.8
+;; Version: 0.2.9
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -88,6 +88,8 @@
     (haskell-mode . "Haskell")
     (scala-ts-mode . "Scala")
     (nix-ts-mode . "Nix")
+    (markdown-mode . "Markdown")
+    (python-mode . "Python")
     (dockerfile-mode . "Containerfile")
     (dockerfile-ts-mode . "Containerfile")
     (dired-mode . "Dired")

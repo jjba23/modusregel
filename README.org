@@ -1,9 +1,17 @@
 #+title: modusregel
-#+options: num:nil toc:nil
+#+author: Josep Bigorra
+#+email: jjbigorra@gmail.com
+#+language: en
+
+[[https://jointhefreeworld.org/ggg/dist/emacs-lisp.svg]] [[https://jointhefreeworld.org/ggg/dist/license-gpl3+.svg]]    [[https://jointhefreeworld.org/ggg/dist/license-fdl13+.svg]] 
 
 /modusregel/ means mode line in the Dutch language.
 
 A clean, simple, elegant and beautiful mode line for Emacs, with customization and performance in mind.
+
+If you like my work, please support me by [[https://bmc.link/jjbigorra][buying me a cup of coffee ☕]] so I can continue with a lot of motivation.
+
+----------------------
 
 Bear in mind modusregel completely replaces Emacs' original mode line, and as such, integrating certain modeline packages will take a different approach. Read further for more information.
 
@@ -11,7 +19,10 @@ Bear in mind modusregel completely replaces Emacs' original mode line, and as su
 
 [[./resources/screenshots/schermafdruk-van-2024-09-23-19-41-20.png]]
 
-** Installing
+
+--------------------------------
+
+* Installing
 
 This package is not (yet) available in popular Emacs repositories such as MELPA or ELPA.
 An example installation with Elpaca:
@@ -32,7 +43,44 @@ An example installation with Elpaca:
   (setq-default mode-line-format modusregel-format)
 #+end_src
 
-*** Using with keycast
+
+------------------------  
+  
+* Licensing
+
+modusregel and all of its source code are free software, licensed under the GNU General Public License v3 (or newer at your convenience).
+
+https://www.gnu.org/licenses/gpl-3.0.html
+
+The documentation and examples, including this document, which are provided with modusregel, are all licensed under the GNU Free Documentation License v1.3 (or newer at your convenience).
+
+https://www.gnu.org/licenses/fdl-1.3.html
+
+---------
+
+* Code of conduct
+
+This project adheres to the jointhefreeworld code of conduct. Find it here:
+
+https://jointhefreeworld.org/blog/articles/personal/jointhefreeworld-code-of-conduct/index.html
+
+In summary, we foster an inclusive, respectful, and cooperative environment for all contributors and users of this free software project. Inspired by the ideals of the GNU Project, we strive to uphold freedom, equality, and community as guiding principles. We believe that collaboration in a community of mutual respect is essential to creating excellent free software.
+
+
+--------------
+
+* modusregel project
+
+Contributing to free software is a uniquely beautiful act because it embodies principles of generosity, collaboration, and empowerment.
+
+We welcome everyone to feel invited to the modusregel project, and encourage active contribution in all forms, to improve it and/or suggest improvements, brainstorm with me, make it more modular/flexible, etc, feel free to contact me <jjbigorra@gmail.com> to chat, discuss or report feedback.
+
+Find here the Backlog and Kanban boards for my Emacs packages: https://lucidplan.jointhefreeworld.org/tickets/emacs-pkg
+
+
+--------------------------
+
+* Using with keycast
 
 modusregel 
 If you'd like to use this package in combination with ~keycast~ you can do this:

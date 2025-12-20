@@ -140,7 +140,6 @@
    modusregel-buffer-name-expr
    modusregel-buffer-modified-str
    modusregel-spacer-str
-   modusregel-nyan-expr
    modusregel-line-number-str
    modusregel-spacer-str
    modusregel-buffer-position-str

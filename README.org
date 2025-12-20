@@ -103,3 +103,7 @@ If you'd like to use this package in combination with ~keycast~ you can do this:
     (add-to-list 'modusregel-format '("" keycast-mode-line))
     (setq-default mode-line-format modusregel-format))
 #+end_src
+
+See my Emacs config where I use modusregel, also with Nyan Cat and more extras:
+
+https://codeberg.org/jjba23/heks-emacs/src/branch/trunk/src/modules/emacs-core.el

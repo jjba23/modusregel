@@ -130,12 +130,17 @@
   '(:eval (modusregel-major-mode-name major-mode))
   "Representation of the major mode in the mode line.")
 
+(defvar modusregel-nyan-expr
+  '(:eval (list (nyan-create)))
+  "Nyan indicator")
+
 (defvar modusregel-format
   (list
    modusregel-leading-str
    modusregel-buffer-name-expr
    modusregel-buffer-modified-str
    modusregel-spacer-str
+   modusregel-nyan-expr
    modusregel-line-number-str
    modusregel-spacer-str
    modusregel-buffer-position-str
@@ -145,6 +150,7 @@
    modusregel-spacer-str
    modusregel-flymake-expr)
   "The mode-line format to be used.")
+
 
 (provide 'modusregel)
 

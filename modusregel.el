@@ -71,7 +71,7 @@
   '(:eval (ignore-errors (flymake--mode-line-counters))))
 
 (defvar modusregel-buffer-name-expr
-  (propertize "%b" 'help-echo (buffer-file-name)))
+  (propertize "%b" 'face 'bold 'help-echo (buffer-file-name)))
 
 (defcustom modusregel-buffer-modified-str
   '(:eval (when (buffer-modified-p) "++"))

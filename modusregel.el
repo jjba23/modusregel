@@ -95,6 +95,7 @@
     (fundamental-mode . "Fundamental")
     (go-mode . "Go")
     (grep-mode . "Grep")
+    (graphql-mode . "GraphQL")
     (haskell-mode . "Haskell")
     (html-mode . "HTML")
     (image-mode . "Image")

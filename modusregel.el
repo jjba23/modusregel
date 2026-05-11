@@ -98,6 +98,7 @@
     (haskell-mode . "Haskell")
     (html-mode . "HTML")
     (image-mode . "Image")
+    (java-mode . "Java")
     (js-json-mode . "JSON")
     (typescript-mode . "TypeScript")
     (typescript-ts-mode . "TypeScript")
@@ -169,4 +170,3 @@
 (provide 'modusregel)
 
 ;;; modusregel.el ends here
-

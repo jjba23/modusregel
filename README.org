@@ -3,7 +3,7 @@
 #+email: jjbigorra@gmail.com
 #+language: en
 
-[[https://jointhefreeworld.org/ggg/dist/emacs-lisp.svg]] [[https://jointhefreeworld.org/ggg/dist/license-gpl3+.svg]]    [[https://jointhefreeworld.org/ggg/dist/license-fdl13+.svg]] 
+[[https://jointhefreeworld.org/ggg/dist/emacs-lisp.svg]] [[https://jointhefreeworld.org/ggg/dist/license-gpl3+.svg]]    [[https://jointhefreeworld.org/ggg/dist/license-fdl13+.svg]]
 
 /modusregel/ means mode line in the Dutch language.
 
@@ -44,8 +44,8 @@ An example installation with Elpaca:
 #+end_src
 
 
-------------------------  
-  
+------------------------
+
 * Licensing
 
 modusregel and all of its source code are free software, licensed under the GNU General Public License v3 (or newer at your convenience).
@@ -57,6 +57,20 @@ The documentation and examples, including this document, which are provided with
 https://www.gnu.org/licenses/fdl-1.3.html
 
 ---------
+
+* AI Policy
+
+This project adheres to the [[https://jointhefreeworld.org/blog/articles/personal/jointhefreeworld-ai-policy/index.html][jointhefreeworld AI (Artificial Intelligence) policy]].
+
+Our core principle is simple: *AI should assist human creativity and problem-solving, never replace human reasoning.*
+
+While tools like Large Language Models (LLMs) and interactive chatbots can be beneficial for reviewing, refactoring small functions, or acting as a sounding board, they should be used with moderation.
+
+We require a human in the loop for all contributions. The use of autonomous AI agents to automatically generate and submit pull requests to this project is strictly prohibited.
+
+
+---------
+
 
 * Code of conduct
 
@@ -82,7 +96,7 @@ Find here the Backlog and Kanban boards for my Emacs packages: https://lucidplan
 
 * Using with keycast
 
-modusregel 
+modusregel
 If you'd like to use this package in combination with ~keycast~ you can do this:
 #+begin_src emacs-lisp
   (use-package keycast

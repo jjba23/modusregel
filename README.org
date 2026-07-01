@@ -29,8 +29,7 @@ An example installation with Elpaca:
 #+begin_src emacs-lisp
   (use-package modusregel
     :ensure (:host codeberg :repo "jjba23/modusregel" :branch "trunk")
-    :config
-    (setq-default mode-line-format modusregel-format))
+    :demand t)
   #+end_src
 
 
@@ -41,6 +40,44 @@ An example installation with Elpaca:
   (setq mode-line-format modusregel-format)
   ;; global
   (setq-default mode-line-format modusregel-format)
+#+end_src
+
+To ensure the modeline is set in your config, you should tweak the Emacs core. Also, in this way, you can choose what parts you like:
+
+#+begin_src emacs-lisp
+;; Simple example
+(defun my-set-custom-modeline ()
+  (setq mode-line-format modusregel-format))
+
+;; Or more advanced control
+(defun my-set-custom-modeline ()
+  "Customize mode-line format using modusregel."
+  (setq mode-line-format (list
+                          modusregel-leading-str
+                          modusregel-remote-expr
+                          modusregel-buffer-name-expr
+                          modusregel-buffer-modified-str
+                          modusregel-buffer-read-only-str
+                          modusregel-spacer-str
+
+                          ;; Uncomment if nyan-mode is enabled above
+                          ;; modusregel-nyan-expr
+
+                          modusregel-spacer-str
+                          modusregel-line-number-str
+                          modusregel-column-number-str
+                          modusregel-spacer-str
+                          modusregel-buffer-position-str
+                          modusregel-spacer-str
+                          modusregel-vc-expr
+                          modusregel-major-mode-expr
+                          modusregel-eglot-expr
+                          modusregel-spacer-str
+                          modusregel-flymake-expr
+                          (ignore-errors keycast-mode-line))))
+
+;; Important hook
+(add-hook 'after-change-major-mode-hook #'my-set-custom-modeline)
 #+end_src
 
 
@@ -97,7 +134,7 @@ Find here the Backlog and Kanban boards for my Emacs packages: https://lucidplan
 * Using with keycast
 
 modusregel
-If you'd like to use this package in combination with ~keycast~ you can do this:
+If you'd like to use this package in combination with ~keycast~ you can look at example above, where we demonstrate advanced control, or alternatively, do something this:
 #+begin_src emacs-lisp
   (use-package keycast
     :ensure t

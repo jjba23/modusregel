@@ -56,7 +56,7 @@
   :type 'string
   :group 'modusregel)
 
-(defcustom modusregel-column-number-str "%c"
+(defcustom modusregel-column-number-str ":%c"
   "String to use as expression to show current column number."
   :type 'string
   :group 'modusregel)
@@ -179,7 +179,6 @@
    modusregel-buffer-read-only-str
    modusregel-spacer-str
    modusregel-line-number-str
-   ":"
    modusregel-column-number-str
    modusregel-spacer-str
    modusregel-buffer-position-str

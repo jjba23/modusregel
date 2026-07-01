@@ -9,15 +9,15 @@
 
 A clean, simple, elegant and beautiful mode line for Emacs, with customization and performance in mind.
 
+Compatible with Emacs GUI and TUI.
+
 If you like my work, please support me by [[https://bmc.link/jjbigorra][buying me a cup of coffee ☕]] so I can continue with a lot of motivation.
 
 ----------------------
 
-Bear in mind modusregel completely replaces Emacs' original mode line, and as such, integrating certain modeline packages will take a different approach. Read further for more information.
+Bear in mind modusregel is able to replace fully the Emacs' original mode line, and as such, integrating certain modeline packages will take a different approach. Read further for more information.
 
-[[./resources/screenshots/schermafdruk-van-2024-09-23-19-41-11.png]]
-
-[[./resources/screenshots/schermafdruk-van-2024-09-23-19-41-20.png]]
+[[https://jointhefreeworld.org/static-assets/modusregel/screen-2026-07-01-15-53-38.png]]
 
 
 --------------------------------

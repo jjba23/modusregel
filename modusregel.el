@@ -2,7 +2,7 @@
 
 ;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.3.7
+;; Version: 0.4.0
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -56,6 +56,11 @@
   :type 'string
   :group 'modusregel)
 
+(defcustom modusregel-column-number-str "%c"
+  "String to use as expression to show current column number."
+  :type 'string
+  :group 'modusregel)
+
 (defcustom modusregel-buffer-position-str "%o"
   "String to use as expression to show current position in buffer."
   :type 'string
@@ -79,114 +84,83 @@
   :type 'string
   :group 'modusregel)
 
+(defcustom modusregel-buffer-read-only-str
+  '(:eval (when buffer-read-only " 🔒"))
+  "String to show when the buffer is read-only."
+  :type 'string
+  :group 'modusregel)
+
+(defvar modusregel-narrowed-expr
+  '(:eval (when (buffer-narrowed-p) " [Narrow]")))
+
+(defvar modusregel-remote-expr
+  '(:eval (when (file-remote-p default-directory) " 🌐 ")))
+
+(defvar modusregel-eglot-expr
+  '(:eval (when (bound-and-true-p eglot--managed-mode)
+            (propertize " ⚡ " 'help-echo "Eglot LSP Active"))))
+
 (defcustom modusregel-major-mode-alist
-  '((bash-ts-mode . "Shell")
+  '((bash-mode . "Shell")
+    (sh-mode . "Shell")
+    (shell-mode . "Shell")
+    (shell-command-mode . "Shell")
     (bibtex-mode . "BibTeX")
-    (c-mode . "C")
-    (c-ts-mode . "C")
     (c++-mode . "C++")
-    (c++-ts-mode . "C++")
     (cmake-mode . "CMake")
-    (comint-mode . "Comint")
     (compilation-mode . "Compile")
     (conf-javaprop-mode . "Props (Java)")
-    (conf-mode . "Conf")
-    (conf-space-mode . "Conf")
-    (conf-unix-mode . "Conf")
     (css-mode . "CSS")
-    (css-ts-mode . "CSS")
     (custom-mode . "Customize")
     (deadgrep-mode . "Grep")
-    (diff-mode . "Diff")
-    (dired-mode . "Dired")
     (doc-view-mode . "Document")
     (dockerfile-mode . "Containerfile")
-    (dockerfile-ts-mode . "Containerfile")
-    (editorconfig-conf-mode . "EditorConfig")
-    (elpaca-log-mode . "Elpaca")
     (emacs-lisp-mode . "ELisp")
+    (elpaca-log-mode . "Elpaca")
     (eshell-mode . "EShell")
-    (fundamental-mode . "Fundamental")
     (gitattributes-mode . "Git Attributes")
     (gitconfig-mode . "Git Config")
     (gitignore-mode . "Git Ignore")
-    (go-mode . "Go")
-    (go-ts-mode . "Go")
     (graphql-mode . "GraphQL")
-    (grep-mode . "Grep")
-    (haskell-mode . "Haskell")
-    (haskell-ts-mode . "Haskell")
-    (help-mode . "Help")
     (html-mode . "HTML")
-    (html-ts-mode . "HTML")
     (ielm-mode . "IELM")
-    (image-mode . "Image")
-    (info-mode . "Info")
-    (java-mode . "Java")
-    (java-ts-mode . "Java")
     (js-json-mode . "JSON")
     (json-mode . "JSON")
-    (json-ts-mode . "JSON")
-    (just-mode . "Just")
-    (kotlin-mode . "Kotlin")
-    (kotlin-ts-mode . "Kotlin")
     (kubernetes-display-thing-mode . "K8s")
     (kubernetes-logs-mode . "K8s logs")
     (kubernetes-overview-mode . "K8s overview")
     (latex-mode . "LaTeX")
     (lisp-interaction-mode . "ELisp")
-    (lua-mode . "Lua")
-    (lua-ts-mode . "Lua")
     (magit-diff-mode . "Git Diff")
     (magit-log-mode . "Git Log")
     (magit-status-mode . "Git Status")
     (makefile-gmake-mode . "Make")
-    (markdown-mode . "Markdown")
-    (markdown-ts-mode . "Markdown")
-    (messages-buffer-mode . "Messages")
-    (nix-ts-mode . "Nix")
-    (occur-mode . "Occur")
     (org-agenda-mode . "Org Agenda")
-    (org-mode . "Org")
     (package-menu-mode . "Packages")
     (pdf-view-mode . "PDF")
     (php-mode . "PHP")
     (po-mode . "PO")
-    (python-mode . "Python")
-    (python-ts-mode . "Python")
-    (ruby-mode . "Ruby")
-    (ruby-ts-mode . "Ruby")
-    (rust-mode . "Rust")
-    (rust-ts-mode . "Rust")
-    (scala-mode . "Scala")
-    (scala-ts-mode . "Scala")
-    (scheme-mode . "Scheme")
-    (scss-mode . "SCSS")
-    (sh-mode . "Shell")
-    (shell-command-mode . "Shell")
-    (shell-mode . "Shell")
-    (shell-ts-mode . "Shell")
     (sql-mode . "SQL")
-    (sql-ts-mode . "SQL")
     (term-mode . "Terminal")
-    (text-mode . "Text")
     (toml-mode . "TOML")
-    (toml-ts-mode . "TOML")
     (typescript-mode . "TypeScript")
-    (typescript-ts-mode . "TypeScript")
     (vterm-mode . "VTerm")
     (wdired-mode . "WDired")
-    (yaml-mode . "YAML")
-    (yaml-ts-mode . "YAML"))
+    (yaml-mode . "YAML"))
   "A mapping of major-mode names to more readable versions."
   :type 'alist
   :group 'modusregel)
 
 (defun modusregel-major-mode-name (raw-name)
   "Convert a RAW-NAME of a major mode into a prettier more readable version."
-  (let* ((mapped-name (cdr (assoc raw-name modusregel-major-mode-alist)))
-         (resulting-mapped-name (or mapped-name (format "%s" raw-name))))
-    resulting-mapped-name))
+  (let* ((name-str (symbol-name raw-name))
+         ;; Map tree-sitter modes to standard modes for alist matching
+         (clean-sym (intern (replace-regexp-in-string "-ts-mode$" "-mode" name-str)))
+         (mapped-name (cdr (assoc clean-sym modusregel-major-mode-alist))))
+    (or mapped-name
+        ;; Fallback: Strip suffix and capitalize (e.g., rust-mode -> Rust)
+        (let ((base (replace-regexp-in-string "-\\(ts-\\)?mode$" "" name-str)))
+          (capitalize base)))))
 
 (defvar modusregel-major-mode-expr
   '(:eval (modusregel-major-mode-name major-mode))
@@ -194,20 +168,25 @@
 
 (defvar modusregel-nyan-expr
   '(:eval (list (nyan-create)))
-  "Nyan indicator")
+  "Nyan Cat indicator (needs nyan cat package).")
 
 (defvar modusregel-format
   (list
    modusregel-leading-str
+   modusregel-remote-expr
    modusregel-buffer-name-expr
    modusregel-buffer-modified-str
+   modusregel-buffer-read-only-str
    modusregel-spacer-str
    modusregel-line-number-str
+   ":"
+   modusregel-column-number-str
    modusregel-spacer-str
    modusregel-buffer-position-str
    modusregel-spacer-str
    modusregel-vc-expr
    modusregel-major-mode-expr
+   modusregel-eglot-expr
    modusregel-spacer-str
    modusregel-flymake-expr)
   "The mode-line format to be used.")

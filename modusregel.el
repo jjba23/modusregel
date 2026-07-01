@@ -2,7 +2,7 @@
 
 ;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.4.0
+;; Version: 0.4.1
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -51,14 +51,14 @@
   :type 'string
   :group 'modusregel)
 
-(defcustom modusregel-line-number-str "%l"
-  "String to use as expression to show current line number."
-  :type 'string
+(defcustom modusregel-line-number-str '("%l")
+  "List containing the line number format construct."
+  :type 'sexp
   :group 'modusregel)
 
-(defcustom modusregel-column-number-str ":%c"
-  "String to use as expression to show current column number."
-  :type 'string
+(defcustom modusregel-column-number-str '(":%c")
+  "List containing the column number format construct."
+  :type 'sexp
   :group 'modusregel)
 
 (defcustom modusregel-buffer-position-str "%o"
@@ -85,7 +85,7 @@
   :group 'modusregel)
 
 (defcustom modusregel-buffer-read-only-str
-  '(:eval (when buffer-read-only " 🔒"))
+  '(:eval (when buffer-read-only " ⊘"))
   "String to show when the buffer is read-only."
   :type 'string
   :group 'modusregel)
@@ -98,7 +98,7 @@
 
 (defvar modusregel-eglot-expr
   '(:eval (when (bound-and-true-p eglot--managed-mode)
-            (propertize " ⚡ " 'help-echo "Eglot LSP Active"))))
+            (propertize " 𝌤 " 'help-echo "Eglot LSP Active"))))
 
 (defcustom modusregel-major-mode-alist
   '((bash-mode . "Shell")

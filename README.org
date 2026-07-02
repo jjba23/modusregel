@@ -5,22 +5,42 @@
 
 [[https://jointhefreeworld.org/ggg/dist/emacs-lisp.svg]] [[https://jointhefreeworld.org/ggg/dist/license-gpl3+.svg]]    [[https://jointhefreeworld.org/ggg/dist/license-fdl13+.svg]]
 
+** What is modusregel?
+
 /modusregel/ means mode line in the Dutch language.
 
-A clean, simple, elegant and beautiful mode line for Emacs, with customization and performance in mind.
+This package provides a clean, simple, elegant, and beautiful mode line for Emacs (the bottom bar), built with customization, beauty and performance in mind. It is fully compatible with both Emacs GUI and TUI viewports.
 
-Compatible with Emacs GUI and TUI.
+- *Tree-Sitter Smart Major Mode-Mapping:* prettifies major mode names, and detects ~-ts-mode~ variants (e.g., ~rust-ts-mode~) and cleans them up beautifully (e.g., ~Rust~).
+- *LSP & Flymake Ready:* Built-in, non-intrusive indicators for Eglot and Flymake counters.
+- *Lightweight & Fast:* Written in pure, efficient Emacs Lisp with performance in mind—no external dependencies.
+- *TUI/GUI Parity:* Designed to look crisp and aligned whether you are running Emacs in a terminal or a graphical window.
 
 If you like my work, please support me by [[https://bmc.link/jjbigorra][buying me a cup of coffee ☕]] so I can continue with a lot of motivation.
 
 ----------------------
 
-Bear in mind modusregel is able to replace fully the Emacs' original mode line, and as such, integrating certain modeline packages will take a different approach. Read further for more information.
+** 📸 Screenshots
+
+Note: modusregel is designed to completely or partially replace the native Emacs mode line. Integrating certain external modeline packages might require custom configuration.
+
+[[https://jointhefreeworld.org/static-assets/modusregel/screen-2026-07-02-23-30-10.png]]
 
 [[https://jointhefreeworld.org/static-assets/modusregel/screen-2026-07-01-15-53-38.png]]
 
 
 --------------------------------
+
+~modusregel~ uses minimalist unicode iconography to keep the interface clean while remaining deeply informative.
+
+It uses minimalist unicode iconography to keep the interface clean while remaining deeply informative:
+| 𝝺 | modusregel-leading-str | Lambda: Placed at the absolute start of your mode line, nodding to Emacs' Lisp heritage. |
+| ● | modusregel-buffer-modified-str | Unsaved Changes: Appears only when the current buffer has been modified but not yet saved. |
+| ☡ | modusregel-buffer-read-only-str| Read-Only Warning: Appears when the buffer is write-protected or read-only.|
+| ☍ | modusregel-remote-expr| Remote Connection: Displays when you are working on a remote file (e.g., via TRAMP). |
+| 𝌤 | modusregel-eglot-expr | Eglot LSP Active: Appears when an Eglot Language Server Protocol session is actively managing the buffer.  |
+
+----------------------------
 
 * Installing
 

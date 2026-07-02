@@ -2,7 +2,7 @@
 
 ;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.4.2
+;; Version: 0.4.3
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -66,10 +66,15 @@
   :type 'string
   :group 'modusregel)
 
+(defface modusregel-vc-face
+  '((t :inherit vc-face :height 0.80))
+  "Face for version control information in the modusregel mode line."
+  :group 'modusregel)
+
 (defvar modusregel-vc-expr
   '(:eval (when-let (vc vc-mode)
             (list
-             (substring vc 5)
+             (propertize (substring vc 5) 'face 'modusregel-vc-face)
              modusregel-spacer-str))))
 
 (defvar modusregel-flymake-expr

@@ -2,7 +2,7 @@
 
 ;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.4.4
+;; Version: 0.4.5
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -189,7 +189,7 @@
    modusregel-line-number-str
    modusregel-column-number-str
    modusregel-spacer-str
-   modusregel-buffer-position-str
+   modusregel-buffer-position-expr
    modusregel-spacer-str
    modusregel-vc-expr
    modusregel-major-mode-expr

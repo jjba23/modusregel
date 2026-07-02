@@ -79,13 +79,13 @@
   (propertize "%b" 'face 'bold 'help-echo (buffer-file-name)))
 
 (defcustom modusregel-buffer-modified-str
-  '(:eval (when (buffer-modified-p) "++"))
+  '(:eval (when (buffer-modified-p) "●"))
   "String to use to show that a buffer is modified and unsaved."
   :type 'string
   :group 'modusregel)
 
 (defcustom modusregel-buffer-read-only-str
-  '(:eval (when buffer-read-only " ⊘"))
+  '(:eval (when buffer-read-only " ☡"))
   "String to show when the buffer is read-only."
   :type 'string
   :group 'modusregel)
@@ -94,7 +94,7 @@
   '(:eval (when (buffer-narrowed-p) " [Narrow]")))
 
 (defvar modusregel-remote-expr
-  '(:eval (when (file-remote-p default-directory) " 🌐 ")))
+  '(:eval (when (file-remote-p default-directory) " ☍ ")))
 
 (defvar modusregel-eglot-expr
   '(:eval (when (bound-and-true-p eglot--managed-mode)

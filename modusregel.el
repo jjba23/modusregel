@@ -2,7 +2,7 @@
 
 ;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.4.3
+;; Version: 0.4.4
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -61,10 +61,13 @@
   :type 'sexp
   :group 'modusregel)
 
-(defcustom modusregel-buffer-position-str "%o"
-  "String to use as expression to show current position in buffer."
-  :type 'string
+(defface modusregel-buffer-position-face
+  '((t :inherit buffer-position-face :height 0.80))
+  "Face for version control information in the modusregel mode line."
   :group 'modusregel)
+
+(defvar modusregel-buffer-position-expr
+  '(:eval (list (propertize "%o" 'face 'modusregel-buffer-position-face))))
 
 (defface modusregel-vc-face
   '((t :inherit vc-face :height 0.80))
@@ -84,7 +87,7 @@
   (propertize "%b" 'face 'bold 'help-echo (buffer-file-name)))
 
 (defcustom modusregel-buffer-modified-str
-  '(:eval (when (buffer-modified-p) "●"))
+  '(:eval (when (buffer-modified-p) " ●"))
   "String to use to show that a buffer is modified and unsaved."
   :type 'string
   :group 'modusregel)
@@ -96,10 +99,10 @@
   :group 'modusregel)
 
 (defvar modusregel-narrowed-expr
-  '(:eval (when (buffer-narrowed-p) " [Narrow]")))
+  '(:eval (when (buffer-narrowed-p) " [narrow]")))
 
 (defvar modusregel-remote-expr
-  '(:eval (when (file-remote-p default-directory) " ☍ ")))
+  '(:eval (when (file-remote-p default-directory) (list modusregel-spacer-str "☍" modusregel-spacer-str))))
 
 (defvar modusregel-eglot-expr
   '(:eval (when (bound-and-true-p eglot--managed-mode)

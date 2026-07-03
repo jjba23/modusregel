@@ -20,8 +20,6 @@ If you like my work, please support me by [[https://bmc.link/jjbigorra][buying m
 
 ----------------------
 
-** 📸 Screenshots
-
 Note: modusregel is designed to completely or partially replace the native Emacs mode line. Integrating certain external modeline packages might require custom configuration.
 
 [[https://jointhefreeworld.org/static-assets/modusregel/screen-2026-07-03-09-04-58.png]]

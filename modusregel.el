@@ -75,7 +75,7 @@
   :group 'modusregel)
 
 (defvar modusregel-vc-expr
-  '(:eval (when-let* (vc vc-mode)
+  '(:eval (when-let* ((vc vc-mode))
             (let ((vc-clean (if (string-match "^ ?[A-Za-z]+[-:]" vc)
                                 (substring vc (match-end 0))
                               vc)))

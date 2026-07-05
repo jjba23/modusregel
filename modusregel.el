@@ -2,7 +2,7 @@
 
 ;; Copyright © Josep Bigorra <jjbigorra@gmail.com>
 
-;; Version: 0.4.6
+;; Version: 0.4.7
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://codeberg.org/jjba23/modusregel
@@ -76,9 +76,12 @@
 
 (defvar modusregel-vc-expr
   '(:eval (when-let* (vc vc-mode)
-            (list
-             (propertize (substring vc 5) 'face 'modusregel-vc-face)
-             modusregel-spacer-str))))
+            (let ((vc-clean (if (string-match "^ ?[A-Za-z]+[-:]" vc)
+                                (substring vc (match-end 0))
+                              vc)))
+              (list
+               (propertize vc-clean 'face 'modusregel-vc-face)
+               modusregel-spacer-str)))))
 
 (defvar modusregel-flymake-expr
   '(:eval (ignore-errors (flymake--mode-line-counters))))

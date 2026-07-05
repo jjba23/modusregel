@@ -75,7 +75,7 @@
   :group 'modusregel)
 
 (defvar modusregel-vc-expr
-  '(:eval (when-let (vc vc-mode)
+  '(:eval (when-let* (vc vc-mode)
             (list
              (propertize (substring vc 5) 'face 'modusregel-vc-face)
              modusregel-spacer-str))))

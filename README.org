@@ -5,7 +5,7 @@
 
 [[https://jointhefreeworld.org/ggg/dist/emacs-lisp.svg]] [[https://jointhefreeworld.org/ggg/dist/license-gpl3+.svg]]    [[https://jointhefreeworld.org/ggg/dist/license-fdl13+.svg]]
 
-** What is modusregel?
+* What is modusregel?
 
 /modusregel/ means mode line in the Dutch language.
 
@@ -13,8 +13,10 @@ This package provides a clean, simple, elegant, and beautiful mode line for Emac
 
 - *Tree-Sitter Smart Major Mode-Mapping:* prettifies major mode names, and detects ~-ts-mode~ variants (e.g., ~rust-ts-mode~) and cleans them up beautifully (e.g., ~Rust~).
 - *LSP & Flymake Ready:* Built-in, non-intrusive indicators for Eglot and Flymake counters.
+- *Complete buffer state:* unsaved changes, read-only buffers, narrowed buffers and remote files each say so, and say nothing when they have nothing to say.
 - *Lightweight & Fast:* Written in pure, efficient Emacs Lisp with performance in mind—no external dependencies.
 - *TUI/GUI Parity:* Designed to look crisp and aligned whether you are running Emacs in a terminal or a graphical window.
+- *Element by element:* every part of the mode line is a ~modusregel-~ variable you can change, reorder, leave out or add to, by name.
 
 If you like my work, please support me by [[https://bmc.link/jjbigorra][buying me a cup of coffee ☕]] so I can continue with a lot of motivation.
 
@@ -28,78 +30,191 @@ Note: modusregel is designed to completely or partially replace the native Emacs
 
 [[https://jointhefreeworld.org/static-assets/modusregel/screen-2026-07-01-15-53-38.png]]
 
+-------------------------------
 
---------------------------------
+* The mode line, element by element
 
-~modusregel~ uses minimalist unicode iconography to keep the interface clean while remaining deeply informative.
+modusregel uses minimalist unicode iconography to keep the interface clean while remaining deeply informative:
 
-It uses minimalist unicode iconography to keep the interface clean while remaining deeply informative:
-| 𝝺 | modusregel-leading-str | Lambda: Placed at the absolute start of your mode line, nodding to Emacs' Lisp heritage. |
-| ● | modusregel-buffer-modified-str | Unsaved Changes: Appears only when the current buffer has been modified but not yet saved. |
-| ☡ | modusregel-buffer-read-only-str| Read-Only Warning: Appears when the buffer is write-protected or read-only.|
-| ☍ | modusregel-remote-expr| Remote Connection: Displays when you are working on a remote file (e.g., via TRAMP). |
-| 𝌤 | modusregel-eglot-expr | Eglot LSP Active: Appears when an Eglot Language Server Protocol session is actively managing the buffer.  |
+| 𝝺  | ~modusregel-leading-str~           | Lambda: placed at the absolute start of your mode line, nodding to Emacs' Lisp heritage. |
+| ●  | ~modusregel-buffer-modified-str~   | Unsaved Changes: appears only when the current buffer has been modified but not yet saved. |
+| ☡  | ~modusregel-buffer-read-only-str~  | Read-Only Warning: appears when the buffer is write-protected or read-only. |
+| ☍  | ~modusregel-remote-expr~           | Remote Connection: displays when you are working on a remote file (e.g., via TRAMP). |
+| 𝌤  | ~modusregel-eglot-expr~            | Eglot LSP Active: appears when an Eglot Language Server Protocol session is actively managing the buffer. |
 
-----------------------------
+The mode line is drawn from ~modusregel-format~, a list of the elements below in the order they appear. Reading it top to bottom is reading your mode line from left to right.
+
+| Element                            | Drawn                                                 |
+|------------------------------------+-------------------------------------------------------|
+| ~modusregel-leading-str~           | The 𝝺 that opens the mode line.                        |
+| ~modusregel-remote-expr~           | ☍ for a buffer visiting a remote file, nothing otherwise. |
+| ~modusregel-buffer-name-expr~      | The name of the buffer, in bold, with the file it visits in its tooltip. |
+| ~modusregel-buffer-modified-str~   | ● while the buffer has unsaved changes.                |
+| ~modusregel-buffer-read-only-str~  | ☡ while the buffer is read-only.                      |
+| ~modusregel-narrowed-expr~         | ~[narrow]~ while the buffer is narrowed.              |
+| ~modusregel-spacer-str~            | The spacer between one part and the next.             |
+| ~modusregel-line-number-str~       | The line number.                                      |
+| ~modusregel-column-number-str~     | The column number, after a colon.                     |
+| ~modusregel-buffer-position-expr~  | How far through the buffer the window has travelled: a percentage, or ~Top~, ~Bot~ or ~All~. |
+| ~modusregel-vc-expr~               | The version control branch or revision, without the name of the backend in front of it. Nothing outside version control. |
+| ~modusregel-major-mode-expr~       | The name of the major mode, prettified through ~modusregel-major-mode-alist~. |
+| ~modusregel-eglot-expr~            | 𝌤 while Eglot manages the buffer.                      |
+| ~modusregel-flymake-expr~          | The Flymake counters, when Flymake has something to report. |
+
+There is one more element, ~modusregel-nyan-expr~, for the [[https://elpa.gnu.org/packages/nyan-mode.html][nyan-mode]] Nyan Cat indicator. It is not part of the default format, and it draws nothing unless ~nyan-mode~ is on, so it can be left in a format that is used with and without it.
+
+-------------------------------
 
 * Installing
 
-This package is not (yet) available in popular Emacs repositories such as MELPA or ELPA.
+This package is not (yet) available in popular Emacs repositories such as MELPA or ELPA. It needs Emacs 29.1 or newer.
+
 An example installation with Elpaca:
 #+begin_src emacs-lisp
-  (use-package modusregel
-    :ensure (:host codeberg :repo "jjba23/modusregel" :branch "trunk")
-    :demand t)
-  #+end_src
-
-
-*Note*: remember that mode-line-format is window-local, this means that to persist changes and set it globally, one must use ~setq-default~ and for tweaking and experimenting, change it temporarily to ~setq~.
-
-#+begin_src emacs-lisp
-  ;; window only
-  (setq mode-line-format modusregel-format)
-  ;; global
-  (setq-default mode-line-format modusregel-format)
+(use-package modusregel
+  :ensure (:host codeberg :repo "jjba23/modusregel" :branch "trunk")
+  :demand t
+  :config
+  (modusregel-mode 1))
 #+end_src
 
-To ensure the modeline is set in your config, you should tweak the Emacs core. Also, in this way, you can choose what parts you like:
+~modusregel-mode~ is a global minor mode that makes ~modusregel-format~ the default ~mode-line-format~, and puts back the value that was there before when you turn it off again. It is off by default, so the package does nothing at all until you ask it to.
+
+*Note*: ~mode-line-format~ belongs to a window, which is why the default value is what gets set: a window that has been given a format of its own keeps it. This is also why the hands-on way of installing the mode line uses ~setq-default~, and why ~setq~ alone only changes the buffer you are in, for as long as it is the one on screen.
 
 #+begin_src emacs-lisp
-;; Simple example
-(defun my-set-custom-modeline ()
-  (setq mode-line-format modusregel-format))
+;; Every window that does not override the value.
+(setq-default mode-line-format modusregel-format)
 
-;; Or more advanced control
-(defun my-set-custom-modeline ()
-  "Customize mode-line format using modusregel."
-  (setq mode-line-format (list
-                          modusregel-leading-str
-                          modusregel-remote-expr
-                          modusregel-buffer-name-expr
-                          modusregel-buffer-modified-str
-                          modusregel-buffer-read-only-str
-                          modusregel-spacer-str
-
-                          ;; Uncomment if nyan-mode is enabled above
-                          ;; modusregel-nyan-expr
-
-                          modusregel-spacer-str
-                          modusregel-line-number-str
-                          modusregel-column-number-str
-                          modusregel-spacer-str
-                          modusregel-buffer-position-str
-                          modusregel-spacer-str
-                          modusregel-vc-expr
-                          modusregel-major-mode-expr
-                          modusregel-eglot-expr
-                          modusregel-spacer-str
-                          modusregel-flymake-expr
-                          (ignore-errors keycast-mode-line))))
-
-;; Important hook
-(add-hook 'after-change-major-mode-hook #'my-set-custom-modeline)
+;; Only this buffer, until you kill it.
+(setq mode-line-format modusregel-format)
 #+end_src
 
+-------------------------------
+
+* Customizing
+
+~M-x customize-group RET modusregel RET~ shows every element, what it draws, and what changing it does.
+
+Because ~modusregel-format~ holds the names of the elements rather than their values, the mode line resolves them when it draws: changing ~modusregel-leading-str~, from Customize or from Lisp, is visible at the next redisplay. There is nothing to reload.
+
+The format is an ordinary list, so it can be edited as one. Ways of changing what is drawn, in the order they are usually wanted:
+
+#+begin_src emacs-lisp
+;; Leave the Flymake counters out.
+(setq modusregel-format (remove 'modusregel-flymake-expr modusregel-format))
+
+;; Put the version control branch first, after the opening lambda.
+(setq modusregel-format
+      (cons (car modusregel-format)
+            (cons 'modusregel-vc-expr
+                  (remove 'modusregel-vc-expr (cdr modusregel-format)))))
+
+;; Add the Nyan Cat, if you use it.  A literal construct belongs in the
+;; format just as a symbol does.
+(add-to-list 'modusregel-format 'modusregel-nyan-expr)
+
+;; Say something of your own, drawing it yourself.
+(add-to-list 'modusregel-format
+             '(:eval (when (derived-mode-p 'prog-mode) " λ ")))
+#+end_src
+
+Two rules of ~mode-line-format~ are worth knowing before editing the list by hand, because breaking either fails quietly:
+
+1. *A list whose car is a symbol is not a list of things to draw.* It is the conditional form ~(SYMBOL THEN ELSE...)~, which draws ~THEN~ when the symbol's value is non-nil and ~ELSE~ otherwise. ~modusregel-format~ therefore begins with a string — Emacs' own mode line format begins with ~"%e"~ for the same reason — and it must keep doing so.
+2. *A symbol has to be marked before the mode line will process what its value holds.* Unless the symbol carries a ~risky-local-variable~ property, the mode line ignores the ~:eval~ forms and the text properties inside its value and draws an empty string instead. Every element of this package is marked; mark yours too:
+
+   #+begin_src emacs-lisp
+   (put 'my-mode-line-element 'risky-local-variable t)
+   #+end_src
+
+-------------------------------
+
+* Building your own format
+
+The elements are ordinary variables, so a format of your own is a list of the ones you want, in the order you want them:
+
+#+begin_src emacs-lisp
+(defun my/modusregel-format ()
+  "Draw the mode line with the parts I care about."
+  (setq-default mode-line-format
+                (list ""
+                      modusregel-leading-str
+                      modusregel-remote-expr
+                      modusregel-buffer-name-expr
+                      modusregel-buffer-modified-str
+                      modusregel-buffer-read-only-str
+                      modusregel-narrowed-expr
+                      modusregel-spacer-str
+                      modusregel-line-number-str
+                      modusregel-column-number-str
+                      modusregel-spacer-str
+                      modusregel-buffer-position-expr
+                      modusregel-spacer-str
+                      modusregel-vc-expr
+                      modusregel-major-mode-expr
+                      modusregel-eglot-expr
+                      modusregel-spacer-str
+                      modusregel-flymake-expr)))
+
+(add-hook 'after-init-hook #'my/modusregel-format)
+#+end_src
+
+Note the leading empty string: it is what makes the list a list of things to draw rather than a conditional (see the two rules above).
+
+If what you want is the whole mode line as this package draws it, ~(modusregel-mode 1)~ is shorter and sets the same thing.
+
+-------------------------------
+
+* Using with keycast
+
+[[https://github.com/tarsius/keycast][keycast]] shows the command you last ran in the mode line. It works with modusregel by being added to the format as a construct of its own:
+
+#+begin_src emacs-lisp
+(use-package keycast
+  :ensure t
+  :hook (after-init . keycast-mode)
+  :config
+  (define-minor-mode keycast-mode
+    "Show current command and its key binding in the mode line."
+    :global t
+    (if keycast-mode
+        (add-hook 'pre-command-hook 'keycast--update t)
+      (remove-hook 'pre-command-hook 'keycast--update))))
+
+(use-package modusregel
+  :ensure (:host codeberg :repo "jjba23/modusregel" :branch "trunk")
+  :after (keycast)
+  :config
+  (add-to-list 'modusregel-format '("" keycast-mode-line))
+  (modusregel-mode 1))
+#+end_src
+
+See my Emacs config where I use modusregel, also with Nyan Cat and more extras:
+
+https://codeberg.org/jjba23/heks-emacs/src/branch/trunk/src/modules/emacs-core.el
+
+-------------------------------
+
+* Testing and development
+
+The project ships with an ERT suite in ~test/modusregel-test.el~, a [[https://codeberg.org/jjba23/maak][Maak]] file, and a ~checkdoc~ gate in ~test/modusregel-checkdoc.el~. With ~maak~ installed, one command runs the whole quality gate:
+
+#+begin_src shell
+maak
+#+end_src
+
+~maak~ on its own runs ~check~, which:
+
+1. byte-compiles the package *and* its test suite with warnings turned into errors, so a new warning fails the gate;
+2. enforces ~checkdoc~, which reports findings and exits non-zero when there is one;
+3. runs the ERT suite.
+
+The suite checks the shape of the package — that every element is documented, used, marked as the mode line requires, and draws a valid construct; that every custom value matches the type it declares; that no face inherits from a face that does not exist — and then it draws the mode line, element by element and whole.
+
+That last part needs care, because ~format-mode-line~ returns an empty string in a noninteractive Emacs: those tests skip in the batch run, and the suite runs them again for real in a second Emacs given a terminal of its own, failing if any of them fails there. Nothing about the mode line is taken on trust.
+
+Other tasks: ~maak compile~, ~maak test~, ~maak lint~, ~maak clean~, ~maak repl~ (an Emacs with the mode line in place) and ~maak tasks~.
 
 ------------------------
 
@@ -125,9 +240,7 @@ While tools like Large Language Models (LLMs) and interactive chatbots can be be
 
 We require a human in the loop for all contributions. The use of autonomous AI agents to automatically generate and submit pull requests to this project is strictly prohibited.
 
-
 ---------
-
 
 * Code of conduct
 
@@ -136,7 +249,6 @@ This project adheres to the jointhefreeworld code of conduct. Find it here:
 https://jointhefreeworld.org/blog/articles/personal/jointhefreeworld-code-of-conduct/index.html
 
 In summary, we foster an inclusive, respectful, and cooperative environment for all contributors and users of this free software project. Inspired by the ideals of the GNU Project, we strive to uphold freedom, equality, and community as guiding principles. We believe that collaboration in a community of mutual respect is essential to creating excellent free software.
-
 
 --------------
 
@@ -147,34 +259,3 @@ Contributing to free software is a uniquely beautiful act because it embodies pr
 We welcome everyone to feel invited to the modusregel project, and encourage active contribution in all forms, to improve it and/or suggest improvements, brainstorm with me, make it more modular/flexible, etc, feel free to contact me <jjbigorra@gmail.com> to chat, discuss or report feedback.
 
 Find here the Backlog and Kanban boards for my Emacs packages: https://lucidplan.jointhefreeworld.org/tickets/emacs-pkg
-
-
---------------------------
-
-* Using with keycast
-
-modusregel
-If you'd like to use this package in combination with ~keycast~ you can look at example above, where we demonstrate advanced control, or alternatively, do something this:
-#+begin_src emacs-lisp
-  (use-package keycast
-    :ensure t
-    :hook (after-init . keycast-mode)
-    :config
-    (define-minor-mode keycast-mode
-      "Show current command and its key binding in the mode line."
-      :global t
-      (if keycast-mode
-          (add-hook 'pre-command-hook 'keycast--update t)
-        (remove-hook 'pre-command-hook 'keycast--update))))
-
-  (use-package modusregel
-    :ensure (:host codeberg :repo "jjba23/modusregel" :branch "trunk")
-    :after (keycast)
-    :config
-    (add-to-list 'modusregel-format '("" keycast-mode-line))
-    (setq-default mode-line-format modusregel-format))
-#+end_src
-
-See my Emacs config where I use modusregel, also with Nyan Cat and more extras:
-
-https://codeberg.org/jjba23/heks-emacs/src/branch/trunk/src/modules/emacs-core.el

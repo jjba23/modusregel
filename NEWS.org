@@ -1,0 +1,58 @@
+#+title: Changelog and News 📰
+#+author: Josep Bigorra
+#+email: jjbigorra@gmail.com
+#+options: toc:nil
+
+All notable changes to this project will be documented in this file. Changes are listed per release and within each release there are details about additions, changes, fixes and removals.
+
+This project adheres loosely to [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
+
+* 0.7.0
+
+This release comes out of an audit of the package: of its documentation against its code, and of its code against Emacs. What follows is what the audit found and what was done about it.
+
+*** Added
+
+- Added an *ERT test suite* in ~test/modusregel-test.el~, and a ~maak~ file. ~maak~ alone runs the whole quality gate: byte-compile the package and its tests with warnings turned into errors, enforce ~checkdoc~ (through ~test/modusregel-checkdoc.el~, which turns its findings into a non-zero exit), then run the tests.
+- The suite checks the parts of the package that are easy to get quietly wrong: that every element is documented and is actually used by the format, that every custom value matches the type it declares, that every face inherits from faces that exist, and that every element draws what it should in the buffer states it is there for.
+- The suite also *draws the mode line*. ~format-mode-line~ returns an empty string in a noninteractive Emacs — the tests that draw therefore skip in a batch run, and the suite runs them for real in a second Emacs given a terminal of its own, failing if any of them fails there. So ~maak test~ checks the mode line itself, not only the code around it.
+- Added ~modusregel-mode~, a global minor mode. ~(modusregel-mode 1)~ makes ~modusregel-format~ the default ~mode-line-format~, and disabling it puts back the value that was there before. It is off by default, and the documented hands-on way of installing the format still works.
+- Added ~modusregel-narrowed-expr~ to the mode line. The variable existed but nothing drew it, so a narrowed buffer said nothing about it.
+- Added ~modusregel--vc-name~, ~modusregel--eglot-active-p~ and ~modusregel--flymake-status~, the three pieces of logic that the corresponding elements used to carry inline, so that they can be tested for what they are.
+
+*** Changed
+
+- ~modusregel-format~ now holds the *symbols* of the element variables rather than their values, as the mode line Emacs starts with holds symbols like ~mode-line-buffer-identification~. The mode line resolves a symbol when it draws, so setting one of the elements — from Lisp or from Customize — takes effect at the next redisplay, with no need to reload the package, and an element can be left out or moved by name. The list still begins with a string: a list whose car is a symbol is the conditional form ~(SYMBOL THEN ELSE...)~, not a list of things to draw.
+- Every element is now marked as a ~risky-local-variable~. A symbol whose value holds ~:eval~ forms or text properties is drawn as an empty string unless it is marked, and nothing announces it; the marking, and the reason for it, is what ~modusregel--format-elements~ now exists to state.
+- The element variables are now ~defcustom~ rather than ~defvar~, so that they appear in ~M-x customize-group RET modusregel~, with the order of the format, ~modusregel-format~, customizable among them.
+- ~modusregel-buffer-name-expr~ is drawn with ~:eval~. The ~help-echo~ that shows the visited file was computed once, when the package was loaded, so it was ~nil~ in every buffer, and it stayed wrong for every buffer but one. It is now the file of the buffer on screen when the mode line draws.
+- ~modusregel-eglot-expr~ asks ~eglot-managed-p~, the supported question, and falls back on the ~eglot--managed-mode~ variable of older Eglot.
+- ~modusregel-flymake-expr~ and ~modusregel-nyan-expr~ check that Flymake and Nyan are there before asking either of them anything. The Nyan element used to raise an error while drawing in any session without ~nyan-mode~, and an error there is an error in the mode line.
+- ~modusregel-vc-expr~ asks whether VC is loaded before reading ~vc-mode~, so a session that never loads it draws no version control instead of failing to draw.
+- ~modusregel-major-mode-name~ strips the mode suffix once, and looks the mode up by the name that is left.
+- ~Package-Requires~ now says Emacs 29.1: the package uses ~when-let*~, which arrived in 29.1, while claiming 28.1.
+- Bumped the version to 0.7.0.
+
+*** Fixed
+
+- ~modusregel-buffer-position-face~ and ~modusregel-vc-face~ inherited from ~buffer-position-face~ and ~vc-face~. Neither face exists in Emacs — not in any version, and not in this checkout — so the ~:inherit~ was a name the mode line silently ignored, and the two faces only ever set their height. They now say so, and set only the height.
+- The docstring of ~modusregel-buffer-position-face~ said it was the face for version control information, which is the docstring of ~modusregel-vc-face~ it was copied from.
+- ~modusregel-buffer-modified-str~ and ~modusregel-buffer-read-only-str~ declared themselves strings while holding an ~:eval~ form. Customize reads that as a value it does not know how to show; both now declare themselves sexps, as the other element expressions do.
+- ~modusregel-major-mode-alist~ declared itself a plain ~alist~ rather than an alist of a symbol to a string.
+- Seven of the element variables had no docstring at all, among them the four that the README's own example told you to use.
+
+*** Documentation
+
+- The README now documents every element of the mode line in the order it is drawn, the two rules of ~mode-line-format~ that a hand-edited format has to respect, how to install the package with ~modusregel-mode~ or by hand, and how to run the tests.
+- It also names the elements the README used to leave out, and stops calling ~modusregel-buffer-position-str~ by a name that never existed.
+- Removed the sentence about the unicode iconography that the README printed twice, and made the two examples it prints two examples rather than one definition of the same function twice.
+
+*** Migration notes
+
+Read this only if you keep your own copy of the mode line format; the defaults need no change.
+
+- *If you set ~mode-line-format~ to ~modusregel-format~*, nothing changes and nothing is needed.
+- *If you built your own list out of the element variables*, it keeps working: the variables still hold what they held, and a list of values is as valid a mode line format as a list of symbols.
+- *If you added a symbol of your own to ~modusregel-format~*, mark it before it will draw: ~(put 'your-element 'risky-local-variable t)~. Without it, the mode line ignores the ~:eval~ forms and the text properties of its value, and draws an empty string.
+- *If you customized ~modusregel-leading-str~ or another element and reloaded the package to see it*, reloading is no longer necessary: a change is drawn at the next redisplay.
+- *If you used ~vc-face~ or ~buffer-position-face~ yourself*, note that they do not exist; the faces of this package no longer name them.

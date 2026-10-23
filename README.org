@@ -78,6 +78,14 @@ An example installation with Elpaca:
   (modusregel-mode 1))
 #+end_src
 
+It is also packaged with Nix. This repository carries the expression itself, ~default.nix~ next to ~modusregel.el~, so ~nix-build~ in this checkout builds the package; and it is part of [[https://codeberg.org/jjba23/nix-jointhefreeworld][nix-jointhefreeworld]], the set of Nix packages for everything Jointhefreeworld. The set's ~emacsOverlay~ adds it to ~emacsPackages~, byte-compiled and with its autoloads, so an Emacs that Nix builds gets it the way it gets any other package:
+#+begin_src nix
+let
+  emacsPackages = pkgs.emacsPackages.overrideScope nix-jointhefreeworld.emacsOverlay;
+in
+  emacsPackages.withPackages (epkgs: [ epkgs.modusregel ])
+#+end_src
+
 ~modusregel-mode~ is a global minor mode that makes ~modusregel-format~ the default ~mode-line-format~, and puts back the value that was there before when you turn it off again. It is off by default, so the package does nothing at all until you ask it to.
 
 *Note*: ~mode-line-format~ belongs to a window, which is why the default value is what gets set: a window that has been given a format of its own keeps it. This is also why the hands-on way of installing the mode line uses ~setq-default~, and why ~setq~ alone only changes the buffer you are in, for as long as it is the one on screen.

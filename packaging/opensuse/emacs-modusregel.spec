@@ -16,7 +16,7 @@
 #
 
 Name:           emacs-modusregel
-Version:        0.7.1
+Version:        0.7.2
 Release:        0
 Summary:        Mode line customizations for Emacs
 License:        GPL-3.0-or-later

@@ -27,7 +27,7 @@ depends=('emacs')
 makedepends=('emacs')
 checkdepends=('emacs')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('d5cc3157d5ad63385c6a576e96e2eeb76c99fa6e83278d3c6758ed419435f716')
+sha256sums=('72fd52007e2be842b8c6f8c3a9c77f97faa1d1a19472619448a9571cc997a997')
 
 build() {
   cd "$srcdir/modusregel"

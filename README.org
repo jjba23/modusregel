@@ -6,6 +6,9 @@
 [[https://jointhefreeworld.org/ggg/dist/emacs-lisp.svg]] [[https://jointhefreeworld.org/ggg/dist/license-gpl3+.svg]]    [[https://jointhefreeworld.org/ggg/dist/license-fdl13+.svg]]
 
 * What is modusregel?
+:PROPERTIES:
+:CUSTOM_ID: what-is-modusregel
+:END:
 
 /modusregel/ means mode line in the Dutch language.
 
@@ -33,39 +36,120 @@ Note: modusregel is designed to completely or partially replace the native Emacs
 -------------------------------
 
 * The mode line, element by element
+:PROPERTIES:
+:CUSTOM_ID: the-mode-line-element-by-element
+:END:
 
 modusregel uses minimalist unicode iconography to keep the interface clean while remaining deeply informative:
 
-| 𝝺  | ~modusregel-leading-str~           | Lambda: placed at the absolute start of your mode line, nodding to Emacs' Lisp heritage. |
-| ●  | ~modusregel-buffer-modified-str~   | Unsaved Changes: appears only when the current buffer has been modified but not yet saved. |
-| ☡  | ~modusregel-buffer-read-only-str~  | Read-Only Warning: appears when the buffer is write-protected or read-only. |
-| ☍  | ~modusregel-remote-expr~           | Remote Connection: displays when you are working on a remote file (e.g., via TRAMP). |
-| 𝌤  | ~modusregel-eglot-expr~            | Eglot LSP Active: appears when an Eglot Language Server Protocol session is actively managing the buffer. |
+| 𝝺  | ~modusregel-leading-str~          | Lambda: placed at the absolute start of your mode line, nodding to Emacs' Lisp heritage.                  |
+| ●  | ~modusregel-buffer-modified-str~  | Unsaved Changes: appears only when the current buffer has been modified but not yet saved.                |
+| ☡  | ~modusregel-buffer-read-only-str~ | Read-Only Warning: appears when the buffer is write-protected or read-only.                               |
+| ☍  | ~modusregel-remote-expr~          | Remote Connection: displays when you are working on a remote file (e.g., via TRAMP).                      |
+| 𝌤 | ~modusregel-eglot-expr~           | Eglot LSP Active: appears when an Eglot Language Server Protocol session is actively managing the buffer. |
 
 The mode line is drawn from ~modusregel-format~, a list of the elements below in the order they appear. Reading it top to bottom is reading your mode line from left to right.
 
-| Element                            | Drawn                                                 |
-|------------------------------------+-------------------------------------------------------|
-| ~modusregel-leading-str~           | The 𝝺 that opens the mode line.                        |
-| ~modusregel-remote-expr~           | ☍ for a buffer visiting a remote file, nothing otherwise. |
-| ~modusregel-buffer-name-expr~      | The name of the buffer, in bold, with the file it visits in its tooltip. |
-| ~modusregel-buffer-modified-str~   | ● while the buffer has unsaved changes.                |
-| ~modusregel-buffer-read-only-str~  | ☡ while the buffer is read-only.                      |
-| ~modusregel-narrowed-expr~         | ~[narrow]~ while the buffer is narrowed.              |
-| ~modusregel-spacer-str~            | The spacer between one part and the next.             |
-| ~modusregel-line-number-str~       | The line number.                                      |
-| ~modusregel-column-number-str~     | The column number, after a colon.                     |
-| ~modusregel-buffer-position-expr~  | How far through the buffer the window has travelled: a percentage, or ~Top~, ~Bot~ or ~All~. |
-| ~modusregel-vc-expr~               | The version control branch or revision, without the name of the backend in front of it. Nothing outside version control. |
-| ~modusregel-major-mode-expr~       | The name of the major mode, prettified through ~modusregel-major-mode-alist~. |
-| ~modusregel-eglot-expr~            | 𝌤 while Eglot manages the buffer.                      |
-| ~modusregel-flymake-expr~          | The Flymake counters, when Flymake has something to report. |
+| Element                           | Drawn                                                                                                                    |
+|-----------------------------------+--------------------------------------------------------------------------------------------------------------------------|
+| ~modusregel-leading-str~          | The 𝝺 that opens the mode line.                                                                                          |
+| ~modusregel-remote-expr~          | ☍ for a buffer visiting a remote file, nothing otherwise.                                                                |
+| ~modusregel-buffer-name-expr~     | The name of the buffer, in bold, with the file it visits in its tooltip.                                                 |
+| ~modusregel-buffer-modified-str~  | ● while the buffer has unsaved changes.                                                                                  |
+| ~modusregel-buffer-read-only-str~ | ☡ while the buffer is read-only.                                                                                         |
+| ~modusregel-narrowed-expr~        | ~[narrow]~ while the buffer is narrowed.                                                                                 |
+| ~modusregel-spacer-str~           | The spacer between one part and the next.                                                                                |
+| ~modusregel-line-number-str~      | The line number.                                                                                                         |
+| ~modusregel-column-number-str~    | The column number, after a colon.                                                                                        |
+| ~modusregel-buffer-position-expr~ | How far through the buffer the window has travelled: a percentage, or ~Top~, ~Bot~ or ~All~.                             |
+| ~modusregel-vc-expr~              | The version control branch or revision, without the name of the backend in front of it. Nothing outside version control. |
+| ~modusregel-major-mode-expr~      | The name of the major mode, prettified through ~modusregel-major-mode-alist~.                                            |
+| ~modusregel-eglot-expr~           | 𝌤 while Eglot manages the buffer.                                                                                       |
+| ~modusregel-flymake-expr~         | The Flymake counters, when Flymake has something to report.                                                              |
 
 There is one more element, ~modusregel-nyan-expr~, for the [[https://elpa.gnu.org/packages/nyan-mode.html][nyan-mode]] Nyan Cat indicator. It is not part of the default format, and it draws nothing unless ~nyan-mode~ is on, so it can be left in a format that is used with and without it.
 
 -------------------------------
 
+* Ways to install
+:PROPERTIES:
+:CUSTOM_ID: ways-to-install
+:END:
+
+/Four routes to the same 0.7.1, from the most automated to the most manual.  They all build the tag this README documents./
+
+** From the Guix channel
+:PROPERTIES:
+:CUSTOM_ID: from-the-guix-channel
+:END:
+*GNU Guix* is the functional package manager this project is developed with: a build is a pure function of its inputs, so the same recipe gives the same result everywhere, and an upgrade that goes wrong can be rolled back.
+
+The jointhefreeworld channel carries ~emacs-modusregel~ at 0.7.1, so a checkout of the channel is enough — no package definition to write:
+
+#+begin_src shell
+git clone https://codeberg.org/jjba23/guix-jointhefreeworld.git
+guix install -L ./guix-jointhefreeworld emacs-modusregel
+#+end_src
+
+Add the channel to ~$HOME/.config/guix/channels.scm~ (the channel's README has the four lines) and a plain ~guix install emacs-modusregel~ keeps working on every later ~guix pull~.
+
+** From the Nix flake
+:PROPERTIES:
+:CUSTOM_ID: from-the-nix-flake
+:END:
+*Nix* offers the same declarative, reproducible model with its own language, its own store and a binary cache, and it is a natural fit if the rest of your machine is already described in Nix.
+
+The jointhefreeworld flake builds this project with this repository's own expression, so the package cannot drift from the source:
+
+#+begin_src shell
+nix build github:jjba23/nix-jointhefreeworld#emacs-modusregel
+#+end_src
+
+The same attribute is available as an overlay, so ~pkgs.jointhefreeworld.emacs-modusregel~ works inside a NixOS or home-manager configuration too.
+
+** As a container image
+:PROPERTIES:
+:CUSTOM_ID: as-a-container-image
+:END:
+*Podman or Docker* is the route that puts nothing on the host: the ~Dockerfile~ in this repository builds the project in a builder stage and copies only what it installed into a runtime stage, so the image is small and the host keeps its own toolchain untouched.
+
+#+begin_src shell
+podman build -t modusregel .   # docker build -t modusregel . also works
+podman run --rm -it modusregel
+#+end_src
+
+The image's entry point is Emacs, with modusregel installed and byte-compiled, which makes it useful for a quick try and for reproducing a bug on a clean system.
+
+** As a distribution package
+:PROPERTIES:
+:CUSTOM_ID: as-a-distribution-package
+:END:
+*Debian, openSUSE and Arch* each get the project through their own package manager.  Packaging lives in this repository under ~packaging/~ and is pinned to the same release tag, so the recipes and the sources they build are versioned together.
+
+None of the three archives ships modusregel yet, so these are recipes to build rather than packages to install from a mirror:
+
+| Distribution   | Package            | How to build it                                                                     |
+|----------------+--------------------+-------------------------------------------------------------------------------------|
+| Debian, Ubuntu | ~elpa-modusregel~  | copy ~packaging/debian~ to the repository root, then ~dpkg-buildpackage -us -uc -b~ |
+| openSUSE       | ~emacs-modusregel~ | ~osc build~ with ~packaging/opensuse~                                               |
+| Arch           | ~emacs-modusregel~ | ~makepkg -si~ in ~packaging/arch~                                                   |
+
+Each recipe carries its own dependency list, so a missing library fails the build with its name rather than producing a package that cannot load.
+
+** Which one?
+:PROPERTIES:
+:CUSTOM_ID: which-one
+:END:
+- *Guix* if you want the toolchain the project is tested with, and the ability to roll back a bad upgrade.
+- *Nix* if the rest of your machine is already declarative; the flake pins nixpkgs and gives you a binary cache.
+- *Container* if you only want to try the release, or reproduce a report on a machine that has nothing installed.
+- *Distribution package* if you want the project managed by the same tool as the rest of your system, with its licence, manual page and launcher in the usual places.
+
+
 * Installing
+:PROPERTIES:
+:CUSTOM_ID: installing
+:END:
 
 This package is not (yet) available in popular Emacs repositories such as MELPA or ELPA. It needs Emacs 29.1 or newer.
 
@@ -101,6 +185,9 @@ in
 -------------------------------
 
 * Customizing
+:PROPERTIES:
+:CUSTOM_ID: customizing
+:END:
 
 ~M-x customize-group RET modusregel RET~ shows every element, what it draws, and what changing it does.
 
@@ -139,6 +226,9 @@ Two rules of ~mode-line-format~ are worth knowing before editing the list by han
 -------------------------------
 
 * Building your own format
+:PROPERTIES:
+:CUSTOM_ID: building-your-own-format
+:END:
 
 The elements are ordinary variables, so a format of your own is a list of the ones you want, in the order you want them:
 
@@ -175,6 +265,9 @@ If what you want is the whole mode line as this package draws it, ~(modusregel-m
 -------------------------------
 
 * Using with keycast
+:PROPERTIES:
+:CUSTOM_ID: using-with-keycast
+:END:
 
 [[https://github.com/tarsius/keycast][keycast]] shows the command you last ran in the mode line. It works with modusregel by being added to the format as a construct of its own:
 
@@ -205,6 +298,9 @@ https://codeberg.org/jjba23/heks-emacs/src/branch/trunk/src/modules/emacs-core.e
 -------------------------------
 
 * Testing and development
+:PROPERTIES:
+:CUSTOM_ID: testing-and-development
+:END:
 
 The project ships with an ERT suite in ~test/modusregel-test.el~, a [[https://codeberg.org/jjba23/maak][Maak]] file, and a ~checkdoc~ gate in ~test/modusregel-checkdoc.el~. With ~maak~ installed, one command runs the whole quality gate:
 
@@ -227,6 +323,9 @@ Other tasks: ~maak compile~, ~maak test~, ~maak lint~, ~maak clean~, ~maak repl~
 ------------------------
 
 * Licensing
+:PROPERTIES:
+:CUSTOM_ID: licensing
+:END:
 
 modusregel and all of its source code are free software, licensed under the GNU General Public License v3 (or newer at your convenience).
 
@@ -239,6 +338,9 @@ https://www.gnu.org/licenses/fdl-1.3.html
 ---------
 
 * AI Policy
+:PROPERTIES:
+:CUSTOM_ID: ai-policy
+:END:
 
 This project adheres to the [[https://jointhefreeworld.org/blog/articles/personal/jointhefreeworld-ai-policy/index.html][jointhefreeworld AI (Artificial Intelligence) policy]].
 
@@ -251,6 +353,9 @@ We require a human in the loop for all contributions. The use of autonomous AI a
 ---------
 
 * Code of conduct
+:PROPERTIES:
+:CUSTOM_ID: code-of-conduct
+:END:
 
 This project adheres to the jointhefreeworld code of conduct. Find it here:
 
@@ -261,6 +366,9 @@ In summary, we foster an inclusive, respectful, and cooperative environment for 
 --------------
 
 * modusregel project
+:PROPERTIES:
+:CUSTOM_ID: modusregel-project
+:END:
 
 Contributing to free software is a uniquely beautiful act because it embodies principles of generosity, collaboration, and empowerment.
 

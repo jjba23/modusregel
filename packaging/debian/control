@@ -1,0 +1,20 @@
+Source: elpa-modusregel
+Section: lisp
+Priority: optional
+Maintainer: Josep Bigorra <jjbigorra@gmail.com>
+Build-Depends:
+ debhelper-compat (= 13),
+ dh-elpa,
+ emacs-nox
+Standards-Version: 4.6.2
+Homepage: https://codeberg.org/jjba23/modusregel
+Vcs-Git: https://codeberg.org/jjba23/modusregel.git
+Vcs-Browser: https://codeberg.org/jjba23/modusregel
+Rules-Requires-Root: no
+
+Package: elpa-modusregel
+Architecture: all
+Depends: ${misc:Depends}, ${elpa:Depends}, emacs
+Description: Mode line customizations for Emacs
+ Modusregel draws the Emacs mode line out of variables the package defines,
+ so each element can be changed, reordered or left out.

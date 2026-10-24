@@ -1,0 +1,50 @@
+# emacs-modusregel
+
+# Copyright © 2026 Josep Bigorra <jjbigorra@gmail.com>
+
+# modusregel is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your
+# option) any later version.
+#
+# modusregel is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+# for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with modusregel. If not, see <https://www.gnu.org/licenses/>.
+
+# Maintainer: Josep Bigorra <jjbigorra@gmail.com>
+pkgname=emacs-modusregel
+pkgver=0.7.1
+pkgrel=1
+pkgdesc="Mode line customizations for Emacs"
+arch=('any')
+url="https://codeberg.org/jjba23/modusregel"
+license=('GPL-3.0-or-later')
+depends=('emacs')
+makedepends=('emacs')
+checkdepends=('emacs')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('d5cc3157d5ad63385c6a576e96e2eeb76c99fa6e83278d3c6758ed419435f716')
+
+build() {
+  cd "$srcdir/modusregel"
+
+  emacs -Q --batch -f batch-byte-compile modusregel.el
+}
+
+# The terminal render test needs a TTY and times out in a build chroot, so the ERT suite is not run.
+# check() omitted.
+
+package() {
+  cd "$srcdir/modusregel"
+
+  install -Dm644 modusregel.el "$pkgdir/usr/share/emacs/site-lisp/modusregel.el"
+  install -Dm644 modusregel.elc "$pkgdir/usr/share/emacs/site-lisp/modusregel.elc"
+
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  install -Dm644 README.org "$pkgdir/usr/share/doc/$pkgname/README.org"
+  install -Dm644 NEWS.org "$pkgdir/usr/share/doc/$pkgname/NEWS.org"
+}

@@ -90,6 +90,20 @@ failure there is a failure of this task."
   "Run the full quality gate (lint and tests)."
   (check))
 
+;; ====== Container tasks ======
+
+(define (container-build)
+  "Build the container image for modusregel."
+  ($ '("podman build -t modusregel .")))
+
+(define (container-run)
+  "Run the container image for modusregel."
+  ($ '("podman run --rm -it modusregel:latest")))
+
+(define (package-docker)
+  "Build the container image for modusregel."
+  (container-build))
+
 ;; Local Variables:
 ;; mode: scheme
 ;; End:

@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with elpa
+
+# The terminal render test needs a TTY and times out in a build chroot, so the ERT suite is not run.
+# dh_elpa_test would run the same ERT suite.
+override_dh_elpa_test:

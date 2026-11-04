@@ -10,6 +10,9 @@
 :CUSTOM_ID: what-is-modusregel
 :END:
 
+#+attr_html: :width 160 :alt modusregel logo
+[[file:logo.svg]]
+
 /modusregel/ means mode line in the Dutch language.
 
 This package provides a clean, simple, elegant, and beautiful mode line for Emacs (the bottom bar), built with customization, beauty and performance in mind. It is fully compatible with both Emacs GUI and TUI viewports.
@@ -144,7 +147,6 @@ Each recipe carries its own dependency list, so a missing library fails the buil
 - *Nix* if the rest of your machine is already declarative; the flake pins nixpkgs and gives you a binary cache.
 - *Container* if you only want to try the release, or reproduce a report on a machine that has nothing installed.
 - *Distribution package* if you want the project managed by the same tool as the rest of your system, with its licence, manual page and launcher in the usual places.
-
 
 * Installing
 :PROPERTIES:

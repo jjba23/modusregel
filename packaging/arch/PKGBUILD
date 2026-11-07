@@ -15,7 +15,7 @@ depends=('emacs')
 makedepends=('emacs')
 checkdepends=('emacs')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('5a9fc53eaa58012b91bef4d78ac7b5e73e97b31c84567c1ffe30f047af693037')
+sha256sums=('ff0ec7e0a950642e6667ebbbd6fac8a19197ca4a9ca423aa0020ea940bf20af8')
 
 # The forge names the unpacked directory after the repository and the tag, not
 # after the tarball ($pkgname-$pkgver), so every step enters it by hand.

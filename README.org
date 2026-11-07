@@ -79,7 +79,7 @@ There is one more element, ~modusregel-nyan-expr~, for the [[https://elpa.gnu.or
 :CUSTOM_ID: ways-to-install
 :END:
 
-/Four routes to the same 0.8.0, from the most automated to the most manual.  They all build the tag this README documents./
+/Four routes to the same 0.9.0, from the most automated to the most manual.  They all build the tag this README documents./
 
 ** From the Guix channel
 :PROPERTIES:

@@ -143,7 +143,7 @@ not drawn at all, and is what this looks for."
 
 (defun modusregel-test--tail (text &optional lines)
   "Return the last LINES lines of TEXT."
-  (let ((all (split-string text "\n")))
+  (let ((all (split-string (or text "") "\n")))
     (string-join (last all (or lines 40)) "\n")))
 
 (defun modusregel-test--customs ()
@@ -573,21 +573,26 @@ report never arrived."
             (insert "  (with-temp-file " (prin1-to-string log) "\n")
             (insert "    (insert (with-current-buffer \"*Messages*\" (buffer-string)))))\n")
             (insert "(kill-emacs)\n"))
-          (setq process
-                (make-process
-                 :name "modusregel-render"
-                 :buffer nil
-                 :noquery t
-                 :command
-                 (list "script" "-qec"
-                       (format "%s -Q -nw -L %s -L %s -l %s -l %s > %s 2>&1"
-                               (shell-quote-argument modusregel-test--emacs)
-                               (shell-quote-argument root)
-                               (shell-quote-argument modusregel-test--directory)
-                               (shell-quote-argument this)
-                               (shell-quote-argument program)
-                               (shell-quote-argument log))
-                       "/dev/null")))
+          ;; `script' allocates a terminal but does not say what type it
+          ;; is, so a session without TERM (CI) would leave Emacs unable
+          ;; to draw in it.  xterm-256color is in every GNU/Linux terminfo.
+          (let ((process-environment
+                 (cons "TERM=xterm-256color" process-environment)))
+            (setq process
+                  (make-process
+                   :name "modusregel-render"
+                   :buffer nil
+                   :noquery t
+                   :command
+                   (list "script" "-qec"
+                         (format "%s -Q -nw -L %s -L %s -l %s -l %s > %s 2>&1"
+                                 (shell-quote-argument modusregel-test--emacs)
+                                 (shell-quote-argument root)
+                                 (shell-quote-argument modusregel-test--directory)
+                                 (shell-quote-argument this)
+                                 (shell-quote-argument program)
+                                 (shell-quote-argument log))
+                         "/dev/null"))))
           (let ((deadline (+ (float-time) modusregel-test--render-timeout)))
             (while (and (< (float-time) deadline)
                         (not (modusregel-test--finished-p report)))

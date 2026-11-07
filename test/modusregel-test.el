@@ -467,7 +467,7 @@ BODY sees `original', the value `mode-line-format' had when it started."
 (ert-deftest modusregel-test-render-mode-line ()
   "A whole mode line is drawn, with the elements of the package in it."
   :tags '(render)
-  (skip-when (not (modusregel-test--rendered-p)))
+  (skip-unless (modusregel-test--rendered-p))
   (modusregel-test--in-buffer "modusregel-test-render"
     (let ((drawn (modusregel-test--draw modusregel-format)))
       (should (string-match-p (regexp-quote modusregel-leading-str) drawn))
@@ -486,7 +486,7 @@ BODY sees `original', the value `mode-line-format' had when it started."
 (ert-deftest modusregel-test-render-buffer-states ()
   "The whole mode line shows the state the buffer is really in."
   :tags '(render)
-  (skip-when (not (modusregel-test--rendered-p)))
+  (skip-unless (modusregel-test--rendered-p))
   (modusregel-test--in-buffer "modusregel-test-render-states"
     ;; Clean, unrestricted, whole: none of the state glyphs are drawn.
     (let ((drawn (modusregel-test--draw modusregel-format)))
@@ -509,7 +509,7 @@ BODY sees `original', the value `mode-line-format' had when it started."
 (ert-deftest modusregel-test-render-without-the-mode ()
   "The format is a mode line format whether the mode installed it or not."
   :tags '(render)
-  (skip-when (not (modusregel-test--rendered-p)))
+  (skip-unless (modusregel-test--rendered-p))
   (modusregel-test--in-buffer "modusregel-test-render-plain"
     (let ((mode-line-format modusregel-format))
       (should (string-match-p "modusregel-test-render-plain"

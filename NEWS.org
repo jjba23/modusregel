@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file. Changes are
 
 This project adheres loosely to [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
+* Unreleased
+
+*** Added
+
+- Added ~maak version~, ~maak version-check~ and ~maak sync-version~, which print the version from the package header, hold every copy of it to that value, and write a new one across the spec, the PKGBUILD, the README and the Debian changelog.  ~maak check~ now runs ~version-check~ first, so a tree whose copies disagree cannot pass the gate.
+
+*** Changed
+
+- The README no longer names the version the Guix channel carries: the channel is another repository with its own bump, so that number went stale as soon as this one moved.
+
 * 0.8.0 (2026-11-07)
 
 This release moves the project to the MIT license and its home to GitHub.

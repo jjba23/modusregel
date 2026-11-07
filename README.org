@@ -87,7 +87,7 @@ There is one more element, ~modusregel-nyan-expr~, for the [[https://elpa.gnu.or
 :END:
 *GNU Guix* is the functional package manager this project is developed with: a build is a pure function of its inputs, so the same recipe gives the same result everywhere, and an upgrade that goes wrong can be rolled back.
 
-The jointhefreeworld channel carries ~emacs-modusregel~ at 0.8.0, so a checkout of the channel is enough — no package definition to write:
+The jointhefreeworld channel carries ~emacs-modusregel~, so a checkout of the channel is enough — no package definition to write:
 
 #+begin_src shell
 git clone https://codeberg.org/jjba23/guix-jointhefreeworld.git
@@ -312,15 +312,26 @@ maak
 
 ~maak~ on its own runs ~check~, which:
 
-1. byte-compiles the package *and* its test suite with warnings turned into errors, so a new warning fails the gate;
-2. enforces ~checkdoc~, which reports findings and exits non-zero when there is one;
-3. runs the ERT suite.
+1. checks that every copy of the version agrees with the package header;
+2. byte-compiles the package *and* its test suite with warnings turned into errors, so a new warning fails the gate;
+3. enforces ~checkdoc~, which reports findings and exits non-zero when there is one;
+4. runs the ERT suite.
 
 The suite checks the shape of the package — that every element is documented, used, marked as the mode line requires, and draws a valid construct; that every custom value matches the type it declares; that no face inherits from a face that does not exist — and then it draws the mode line, element by element and whole.
 
 That last part needs care, because ~format-mode-line~ returns an empty string in a noninteractive Emacs: those tests skip in the batch run, and the suite runs them again for real in a second Emacs given a terminal of its own, failing if any of them fails there. Nothing about the mode line is taken on trust.
 
 Other tasks: ~maak compile~, ~maak test~, ~maak lint~, ~maak clean~, ~maak repl~ (an Emacs with the mode line in place) and ~maak tasks~.
+
+The version is written by hand once, in the ~Version:~ header of ~modusregel.el~, which Emacs reads and ~default.nix~ derives from. The spec, the PKGBUILD, the README and the Debian changelog carry copies, and three tasks keep them in step:
+
+#+begin_src shell
+maak version                # print the version the header declares
+maak version-check          # fail unless every copy agrees with it
+maak sync-version [VERSION] # write VERSION (or the header's) into every copy
+#+end_src
+
+~maak check~ runs ~version-check~ first, so a tree whose copies disagree cannot pass the gate.  A release is ~maak sync-version 0.9.0~, then the release notes and the wording of the new changelog entry, a commit, a ~v0.9.0~ tag, and finally the Arch checksum once the tag is pushed.
 
 The same gate runs in CI: [[file:.github/workflows/check.yml][.github/workflows/check.yml]] spells the ~lint~ and ~test~ commands out for a plain Emacs, so it needs no Guile, and runs them on every push and pull request.  It also fails when a formatter has put a space into an autoload cookie (~;;; ###autoload~), which turns the cookie into a plain comment and silently stops ~modusregel-mode~ from being autoloaded.
 

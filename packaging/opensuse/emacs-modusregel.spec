@@ -16,11 +16,11 @@
 #
 
 Name:           emacs-modusregel
-Version:        0.7.2
+Version:        0.8.0
 Release:        0
 Summary:        Mode line customizations for Emacs
-License:        GPL-3.0-or-later
-URL:            https://codeberg.org/jjba23/modusregel
+License:        MIT
+URL:            https://github.com/jjba23/modusregel
 Source0:        modusregel-%{version}.tar.gz
 BuildRequires:  emacs
 Requires:       emacs
@@ -43,7 +43,7 @@ install -m 0644 modusregel.el modusregel.elc %{buildroot}%{_datadir}/emacs/site-
 # %check omitted.
 
 %files
-%license COPYING
+%license LICENSE
 %doc README.org NEWS.org
 %{_datadir}/emacs/site-lisp/modusregel.el
 %{_datadir}/emacs/site-lisp/modusregel.elc

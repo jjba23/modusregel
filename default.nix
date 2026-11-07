@@ -1,19 +1,7 @@
 # modusregel
 
+# SPDX-License-Identifier: MIT
 # Copyright © Josep Bigorra <jjbigorra@gmail.com>
-
-# modusregel is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# modusregel is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with modusregel.  If not, see <https://www.gnu.org/licenses/>.
 
 # The package of this checkout, built with `melpaBuild' -- the builder MELPA
 # itself uses, which reads the headers, writes the -pkg.el and the autoloads,
@@ -54,14 +42,14 @@ melpaBuild {
   # editor backups out of the store.
   src = lib.cleanSource ./.;
 
-  # The repository carries its tests, its NEWS and its COPYING next to the
+  # The repository carries its tests, its NEWS and its LICENSE next to the
   # package; the package is the .el files at the top level and nothing else.
   files = ''("*.el")'';
 
   meta = {
     description = "Mode line customizations";
-    homepage = "https://codeberg.org/jjba23/modusregel";
-    license = lib.licenses.gpl3Plus;
+    homepage = "https://github.com/jjba23/modusregel";
+    license = lib.licenses.mit;
     maintainers = [ lib.maintainers.jjba23 ];
   };
 }

@@ -1,36 +1,28 @@
 # emacs-modusregel
 
+# SPDX-License-Identifier: MIT
 # Copyright © 2026 Josep Bigorra <jjbigorra@gmail.com>
-
-# modusregel is free software: you can redistribute it and/or modify it under
-# the terms of the GNU General Public License as published by the Free
-# Software Foundation, either version 3 of the License, or (at your
-# option) any later version.
-#
-# modusregel is distributed in the hope that it will be useful, but WITHOUT
-# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-# for more details.
-#
-# You should have received a copy of the GNU General Public License along
-# with modusregel. If not, see <https://www.gnu.org/licenses/>.
 
 # Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 pkgname=emacs-modusregel
-pkgver=0.7.1
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="Mode line customizations for Emacs"
 arch=('any')
-url="https://codeberg.org/jjba23/modusregel"
-license=('GPL-3.0-or-later')
+url="https://github.com/jjba23/modusregel"
+license=('MIT')
 depends=('emacs')
 makedepends=('emacs')
 checkdepends=('emacs')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('72fd52007e2be842b8c6f8c3a9c77f97faa1d1a19472619448a9571cc997a997')
+sha256sums=('SKIP')
+
+# The forge names the unpacked directory after the repository and the tag, not
+# after the tarball ($pkgname-$pkgver), so every step enters it by hand.
+_srcdir="$srcdir/modusregel-$pkgver"
 
 build() {
-  cd "$srcdir/modusregel"
+  cd "$_srcdir"
 
   emacs -Q --batch -f batch-byte-compile modusregel.el
 }
@@ -39,12 +31,12 @@ build() {
 # check() omitted.
 
 package() {
-  cd "$srcdir/modusregel"
+  cd "$_srcdir"
 
   install -Dm644 modusregel.el "$pkgdir/usr/share/emacs/site-lisp/modusregel.el"
   install -Dm644 modusregel.elc "$pkgdir/usr/share/emacs/site-lisp/modusregel.elc"
 
-  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   install -Dm644 README.org "$pkgdir/usr/share/doc/$pkgname/README.org"
   install -Dm644 NEWS.org "$pkgdir/usr/share/doc/$pkgname/NEWS.org"
 }

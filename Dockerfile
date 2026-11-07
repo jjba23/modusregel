@@ -37,8 +37,8 @@ ENV LANG=C.UTF-8 \
 
 LABEL org.opencontainers.image.title="modusregel" \
       org.opencontainers.image.description="Mode line customizations for Emacs" \
-      org.opencontainers.image.url="https://codeberg.org/jjba23/modusregel" \
-      org.opencontainers.image.licenses="GPL-3.0-or-later" \
+      org.opencontainers.image.url="https://github.com/jjba23/modusregel" \
+      org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.version="${VERSION}"
 
 RUN --mount=type=cache,target=/var/cache/zypp \

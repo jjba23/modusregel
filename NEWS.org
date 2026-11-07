@@ -7,6 +7,19 @@ All notable changes to this project will be documented in this file. Changes are
 
 This project adheres loosely to [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
 
+* 0.8.0 (2026-11-07)
+
+This release moves the project to the MIT license and its home to GitHub.
+
+*** Changed
+
+- modusregel is relicensed from GPL-3.0-or-later to MIT.  ~LICENSE~ carries the MIT text, and every header, packaging recipe and container label names MIT.  The documentation moves with the code, so the separate GFDL grant is gone.
+- The project moved to GitHub: the package header, the packaging recipes, the container labels and the installation examples now name https://github.com/jjba23/modusregel, and the Elpaca recipe fetches from GitHub.
+
+*** Added
+
+- A GitHub Actions workflow, ~.github/workflows/check.yml~, runs the byte-compile, checkdoc and ERT gate on every push and pull request.  It needs nothing but an Emacs and the shell's ~script~, which the render tests use to give their second Emacs a terminal.
+
 * 0.7.0
 
 This release comes out of an audit of the package: of its documentation against its code, and of its code against Emacs. What follows is what the audit found and what was done about it.

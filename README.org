@@ -3,7 +3,7 @@
 #+email: jjbigorra@gmail.com
 #+language: en
 
-[[https://jointhefreeworld.org/ggg/dist/emacs-lisp.svg]] [[https://jointhefreeworld.org/ggg/dist/license-gpl3+.svg]]    [[https://jointhefreeworld.org/ggg/dist/license-fdl13+.svg]]
+[[https://jointhefreeworld.org/ggg/dist/emacs-lisp.svg]] [[https://jointhefreeworld.org/ggg/dist/license-mit.svg]]
 
 * What is modusregel?
 :PROPERTIES:
@@ -79,7 +79,7 @@ There is one more element, ~modusregel-nyan-expr~, for the [[https://elpa.gnu.or
 :CUSTOM_ID: ways-to-install
 :END:
 
-/Four routes to the same 0.7.1, from the most automated to the most manual.  They all build the tag this README documents./
+/Four routes to the same 0.8.0, from the most automated to the most manual.  They all build the tag this README documents./
 
 ** From the Guix channel
 :PROPERTIES:
@@ -87,7 +87,7 @@ There is one more element, ~modusregel-nyan-expr~, for the [[https://elpa.gnu.or
 :END:
 *GNU Guix* is the functional package manager this project is developed with: a build is a pure function of its inputs, so the same recipe gives the same result everywhere, and an upgrade that goes wrong can be rolled back.
 
-The jointhefreeworld channel carries ~emacs-modusregel~ at 0.7.1, so a checkout of the channel is enough — no package definition to write:
+The jointhefreeworld channel carries ~emacs-modusregel~ at 0.8.0, so a checkout of the channel is enough — no package definition to write:
 
 #+begin_src shell
 git clone https://codeberg.org/jjba23/guix-jointhefreeworld.git
@@ -158,7 +158,7 @@ This package is not (yet) available in popular Emacs repositories such as MELPA 
 An example installation with Elpaca:
 #+begin_src emacs-lisp
 (use-package modusregel
-  :ensure (:host codeberg :repo "jjba23/modusregel" :branch "trunk")
+  :ensure (:host github :repo "jjba23/modusregel" :branch "trunk")
   :demand t
   :config
   (modusregel-mode 1))
@@ -286,7 +286,7 @@ If what you want is the whole mode line as this package draws it, ~(modusregel-m
       (remove-hook 'pre-command-hook 'keycast--update))))
 
 (use-package modusregel
-  :ensure (:host codeberg :repo "jjba23/modusregel" :branch "trunk")
+  :ensure (:host github :repo "jjba23/modusregel" :branch "trunk")
   :after (keycast)
   :config
   (add-to-list 'modusregel-format '("" keycast-mode-line))
@@ -322,6 +322,8 @@ That last part needs care, because ~format-mode-line~ returns an empty string in
 
 Other tasks: ~maak compile~, ~maak test~, ~maak lint~, ~maak clean~, ~maak repl~ (an Emacs with the mode line in place) and ~maak tasks~.
 
+The same gate runs in CI: [[file:.github/workflows/check.yml][.github/workflows/check.yml]] spells the ~lint~ and ~test~ commands out for a plain Emacs, so it needs no Guile, and runs them on every push and pull request.  It also fails when a formatter has put a space into an autoload cookie (~;;; ###autoload~), which turns the cookie into a plain comment and silently stops ~modusregel-mode~ from being autoloaded.
+
 ------------------------
 
 * Licensing
@@ -329,13 +331,9 @@ Other tasks: ~maak compile~, ~maak test~, ~maak lint~, ~maak clean~, ~maak repl~
 :CUSTOM_ID: licensing
 :END:
 
-modusregel and all of its source code are free software, licensed under the GNU General Public License v3 (or newer at your convenience).
+modusregel and all of its source code and documentation are free software, licensed under the MIT License.
 
-https://www.gnu.org/licenses/gpl-3.0.html
-
-The documentation and examples, including this document, which are provided with modusregel, are all licensed under the GNU Free Documentation License v1.3 (or newer at your convenience).
-
-https://www.gnu.org/licenses/fdl-1.3.html
+See [[file:LICENSE][LICENSE]].
 
 ---------
 

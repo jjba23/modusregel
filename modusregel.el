@@ -4,7 +4,7 @@
 
 ;; SPDX-License-Identifier: MIT
 
-;; Version: 0.9.0
+;; Version: 0.9.3
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
 ;; URL: https://github.com/jjba23/modusregel

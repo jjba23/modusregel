@@ -16,7 +16,7 @@
 #
 
 Name:           emacs-modusregel
-Version:        0.9.0
+Version:        0.9.3
 Release:        0
 Summary:        Mode line customizations for Emacs
 License:        MIT
